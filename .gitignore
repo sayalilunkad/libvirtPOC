@@ -4,7 +4,7 @@
 .idea
 
 # Build results
-.pyc
+*.pyc
 target/
 publish-docs/
 generated/
