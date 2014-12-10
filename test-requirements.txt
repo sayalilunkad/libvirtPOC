@@ -1,2 +1,3 @@
-nosetests
-libvirt-python==1.2.10
+nose
+libvirt-python
+flake8

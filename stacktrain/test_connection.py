@@ -1,32 +1,45 @@
-import libvirt
+'''
+License: Apache2
+'''
 import sys
-from xml.etree import ElementTree as ET
 
-def run():
-    URI = "qemu:///system"
-    VM = 'vm1'
+import libvirt
 
-    conn = libvirt.open(URI)
-    dom0 = conn.lookupByName(VM)
 
-    vm_xml = dom0.XMLDesc(0)
+class TestConnection():
+    '''Testing libvirt connection!'''
 
-    root = ET.fromstring(vm_xml)
-    print root
+    def connect(self):
+        '''Open connection to the given libvirt domain.'''
 
-    print ('\n\n\n\n\n\n')
+        uri = "qemu:///system"
+        return libvirt.open(uri)
 
-    if conn == None:
-        print 'Failed to open connection to the hypervisor'
-        sys.exit(1)
+    def test_conn(self):
+        '''Test the connection.'''
 
-    try:
-        dom1 = conn.getAllDomainStats()
-    except:
-        print 'Failed to find the main domain'
-        sys.exit(1)
+        conn = self.connect()
+        if conn is None:
+            print('Failed to open connection to the hypervisor')
+            return False
+        else:
+            print('Connection successful')
+            conn.close()
+            return True
 
-    print "Domain 0: id %d running %s" % (dom0.ID(), dom0.OSType())
-    print dom0.info()
+    def get_info(self):
+        '''Get some basic information about the libvirt domain.'''
 
-    return True
+        conn = self.connect()
+        print dir(conn)
+        try:
+            dom_info = conn.getInfo()
+            dom_sys_info = conn.getSysinfo()
+            print(dom_info)
+            print(dom_sys_info)
+            conn.close()
+            return True
+
+        except Exception:
+            print('Failed to find the main domain')
+            return False
