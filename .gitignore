@@ -1,31 +1,19 @@
-
-.DS_Store
-*.xpr
-.idea
-
 # Build results
 *.pyc
+
 target/
 publish-docs/
 generated/
-/build-*.log.gz
-
-# Ignore Vagrant Related Files
-acceptance_config.yml
-boxes/*
-.vagrant
+.ropeproject/
 
 # Testenvironment
 .tox/
+.venv/
 
 # Editors
 *~
 .*.swp
-.bak
-/.project
-.ropeproject/*
 
 # Labs artifacts
 stacktrain/osbash/img/
 stacktrain/osbash/log/
-vagrant-ssh-keys
