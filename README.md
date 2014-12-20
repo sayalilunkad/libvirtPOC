@@ -11,6 +11,8 @@ About
 OpenStack training labs are the tools useful for trainers and trainees. These
 scripts will automate deployment of OpenStack on VirtualBox and KVM/Qemu.
 
+Refer this etherpad https://etherpad.openstack.org/p/stacktrain
+
 Note
 ----
 
