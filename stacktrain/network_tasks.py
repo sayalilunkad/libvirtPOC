@@ -41,7 +41,7 @@ class Network:
 
     def list_networks(self):
 
-        return self.conn.listAllNetworks()
+        return self.conn.listNetworks()
 
     def close(self):
         self.conn.close()
