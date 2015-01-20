@@ -1,6 +1,9 @@
 Stacktrain
 ----------
 
+<a href='https://travis-ci.org/dguitarbite/stacktrain'><img
+src='https://secure.travis-ci.org/dguitarbite/stacktrain.png?branch=master'></a>
+
 Stack train is the python implementation for osbash. Stack train will only
 replace the host side scripts from bash to python.
 
