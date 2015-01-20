@@ -4,8 +4,6 @@ from xml.etree import ElementTree as ET
 
 uri = 'qemu:///system'
 conn = libvirt.open(uri)
-<<<<<<< HEAD
-
 
 # Get Libvirt version
 # getversion
@@ -38,9 +36,6 @@ for id in conn.listDomainsID():
     print ' '
 
 '''
-
-=======
->>>>>>> 3b50bc5ab0b86c254422c649505b892595d32d69
 
 
 # Get Libvirt version
