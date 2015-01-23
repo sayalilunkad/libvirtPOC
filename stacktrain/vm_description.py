@@ -1,4 +1,5 @@
 import libvirt
+import os
 import random
 import uuid as uid
 from xml.etree import ElementTree as ET
@@ -35,12 +36,12 @@ class VirtualMachine(object):
         uuid.text = str(uid.uuid4())
         vcpu = SubElement(top, 'vcpu')
         vcpu.text = '1'
-        os = SubElement(top, 'os')
-        type = SubElement(os, 'type')
+        operating_system = SubElement(top, 'os')
+        type = SubElement(operating_system, 'type')
         type.attrib['arch'] = self.conn.getInfo()[0]
         type.text = self.os_type
         type.attrib['machine'] = self.machine_type
-        boot = SubElement(os, 'boot')
+        boot = SubElement(operating_system, 'boot')
         boot.attrib['dev'] = 'hd'
         cpu = SubElement(top, 'cpu')
         cpu.attrib['match'] = 'exact'
@@ -65,9 +66,9 @@ class VirtualMachine(object):
         S4 = SubElement(pm, 'suspend-to-mem')
         S4.attrib['enabled'] = 'yes'
         features = SubElement(top, 'features')
-        pae = SubElement(features, 'pae')
-        acpi = SubElement(features, 'acpi')
-        apic = SubElement(features, 'apic')
+        SubElement(features, 'pae')
+        SubElement(features, 'acpi')
+        SubElement(features, 'apic')
         clock = SubElement(top, 'clock')
         clock.attrib['offset'] = 'localtime'
         timer1 = SubElement(clock, 'timer')
@@ -84,20 +85,12 @@ class VirtualMachine(object):
         emulator.text = self.guest_emulator
         disk1 = SubElement(devices, 'disk')
         disk1.attrib['type'] = 'file'
-        disk1.attrib['device'] = 'disk'
-        driver = SubElement(disk1, 'driver')
-        driver.attrib['name'] = 'qemu'
-        driver.attrib['type'] = 'qcow2'
+        disk1.attrib['device'] = 'cdrom'
+        current_dir = os.getcwd()
         source = SubElement(disk1, 'source')
-        source.attrib['file'] = '/var/lib/libvirt/images/%s.qcow2' % self.vm_name
+        source.attrib['file'] = '%s/osbash/img/ubuntu-14.04.1-server-amd64.iso' % current_dir
         target = SubElement(disk1, 'target')
-        target.attrib['dev'] = 'hda'
-        target.attrib['bus'] = 'ide'
-        address = SubElement(disk1, 'address')
-        address.attrib['type'] = 'drive'
-        address.attrib['controller'] = '0'
-        address.attrib['bus'] = '0'
-        address.attrib['target'] = '0'
-        address.attrib['unit'] = '0'
+        target.attrib['dev'] = 'hdc'
+        SubElement(disk1, 'readonly')
         fhandle = open('%s.xml' % self.vm_name, 'w')
         fhandle.write(ET.tostring(top))
