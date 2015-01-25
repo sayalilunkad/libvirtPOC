@@ -36,14 +36,14 @@ class Domain(object):
         except Exception:
             pass
 
-    def create_domain(self, vm_name, vm_memory='1024000'):
+    def create_domain(self, domain_name, memory='1024000'):
         '''
         Creates a VM as per XML description
         '''
         try:
-            vmd = vm.VirtualMachine(vm_name, vm_memory)
+            vmd = vm.VirtualMachine(domain_name, memory)
             vmd.build_xml_tree()
-            fhandle = open('xml/%s.xml' % vm_name, "r")
+            fhandle = open('xml/%s.xml' % domain_name, "r")
             xml_description = fhandle.read()
             self.conn.defineXML(xml_description)
         except Exception:
@@ -59,7 +59,18 @@ class Domain(object):
             if virDomain_obj.ID() in active_domains:
                 virDomain_obj.destroy()
             virDomain_obj.undefine()
-            os.remove('xml/%s.xml' %domain_name)
+            os.remove('xml/%s.xml' % domain_name)
+        except Exception:
+            pass
 
+    def take_domain_snapshot(self, domain_name, snapshot_name):
+        '''
+        Takes snaphot of current state of VirtualMachine
+        '''
+        xmlDesc = "<domainsnapshot><name>%s</name></domainsnapshot>" \
+            % snapshot_name
+        try:
+            virDomain_obj = self.conn.lookupByName(domain_name)
+            virDomain_obj.snapshotCreateXML(xmlDesc, 0)
         except Exception:
             pass
