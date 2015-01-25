@@ -92,5 +92,5 @@ class VirtualMachine(object):
         target = SubElement(disk1, 'target')
         target.attrib['dev'] = 'hdc'
         SubElement(disk1, 'readonly')
-        fhandle = open('%s.xml' % self.vm_name, 'w')
+        fhandle = open('%s/xml/%s.xml' % (current_dir, self.vm_name), 'w')
         fhandle.write(ET.tostring(top))

@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import libvirt
+import os
 import vm_description as vm
 
 
@@ -42,7 +43,7 @@ class Domain(object):
         try:
             vmd = vm.VirtualMachine(vm_name, vm_memory)
             vmd.build_xml_tree()
-            fhandle = open('%s.xml' % vm_name, "r")
+            fhandle = open('xml/%s.xml' % vm_name, "r")
             xml_description = fhandle.read()
             self.conn.defineXML(xml_description)
         except Exception:
@@ -58,5 +59,7 @@ class Domain(object):
             if virDomain_obj.ID() in active_domains:
                 virDomain_obj.destroy()
             virDomain_obj.undefine()
+            os.remove('xml/%s.xml' %domain_name)
+
         except Exception:
             pass
