@@ -2,7 +2,8 @@
 
 import libvirt
 import os
-import vm_description as vm
+import uuid as uid
+from xml.etree import ElementTree as ET
 
 
 class Domain(object):
@@ -36,13 +37,55 @@ class Domain(object):
         except Exception:
             pass
 
-    def create_domain(self, domain_name, memory='1024000'):
+    def create_domain_xml(self, domain_name, memory):
         '''
-        Creates a VM as per XML description
+        Creates XML for domain
+        '''
+        current_dir = os.getcwd()
+        capabilities = self.conn.getCapabilities()
+        ctree = ET.ElementTree(ET.fromstring(capabilities))
+        croot = ctree.getroot()
+        for host in croot.findall('host'):
+            cpu = host.find('cpu')
+            self.host_model = cpu.find('model').text
+        for guest in croot.findall('guest'):
+            arch = guest.find('arch')
+            if arch.get('name') == self.conn.getInfo()[0]:
+                self.os_type = guest.find('os_type').text
+                self.guest_emulator = arch.find('emulator').text
+                self.machine_type = arch.find('machine').get('canonical')
+        fhandle = open("%s/xml/template.xml" % current_dir, 'rw')
+        xml = fhandle.read()
+        tree = ET.ElementTree(ET.fromstring(xml))
+        root = tree.getroot()
+        for name in root.findall('name'):
+            name.text = domain_name
+        for uuid in root.findall('uuid'):
+            uuid.text = str(uid.uuid4())
+        for mem in root.findall('memory'):
+            mem.text = str(memory)
+        for curr_mem in root.findall('currentMemory'):
+            curr_mem.text = str(memory)
+        for host_os in root.findall('os'):
+            host_os.find('type').set('arch', self.conn.getInfo()[0])
+            host_os.find('type').set('machine', self.machine_type)
+            host_os.find('type').text = self.os_type
+        for host_cpu in root.findall('cpu'):
+            host_cpu.find('model').text = self.host_model
+        for devices in root.findall('devices'):
+            devices.find('emulator').text = self.guest_emulator
+        for devices in root.findall('devices'):
+            disk = devices.find('disk')
+            disk.find('source').set('file', '%s/osbash/img/ubuntu-14.04.1-server-amd64.iso' % current_dir)
+
+        tree.write('%s/xml/%s.xml' % (current_dir, domain_name))
+
+    def create_domain(self, domain_name, memory=1024000):
+        '''
+        Creates a VM as per XML file
         '''
         try:
-            vmd = vm.VirtualMachine(domain_name, memory)
-            vmd.build_xml_tree()
+            self.create_domain_xml(domain_name, memory)
             fhandle = open('xml/%s.xml' % domain_name, "r")
             xml_description = fhandle.read()
             self.conn.defineXML(xml_description)
