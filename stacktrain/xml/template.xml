@@ -7,6 +7,13 @@
   <os>
     <type arch='' machine=''></type>
     <boot dev='hd'/>
+    <kernel></kernel>
+    <initrd></initrd>
+    <cmdline>method=http://in.archive.ubuntu.com/ console=ttyS0 console=tty locale=en_US.UTF-8 \
+        console-keymaps-at/keymap=us console-setup/ask_detect=false console-setup/layoutcode=us \
+        keyboard-configuration/layout=USA keyboard-configuration/variant=US netcfg/get_hostname=osbash \
+        netcfg/get_domainname=local preseed/url=http://git.openstack.org/cgit/openstack/training-guides/plain/labs/lib/osbash/netboot/preseed-ssh.cfg" \
+    </cmdline>
   </os>
   <features>
     <acpi/>
@@ -28,13 +35,7 @@
     <emulator></emulator>
     <disk type='file' device='cdrom'>
       <source file=''/>
-      <target dev='vda' bus='virtio'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x07' function='0x0'/>
-    </disk>
-    <disk type='block' device='cdrom'>
-      <driver name='qemu' type='raw'/>
       <target dev='hda' bus='ide'/>
-      <readonly/>
       <address type='drive' controller='0' bus='0' target='0' unit='0'/>
     </disk>
     <controller type='usb' index='0' model='ich9-ehci1'>

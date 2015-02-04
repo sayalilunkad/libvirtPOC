@@ -41,7 +41,7 @@ class Domain(object):
         '''
         Creates XML for domain
         '''
-        current_dir = os.getcwd()
+        ABS_DIR = os.path.abspath('vm_tasks.py').rsplit('/', 1)[0]
         capabilities = self.conn.getCapabilities()
         ctree = ET.ElementTree(ET.fromstring(capabilities))
         croot = ctree.getroot()
@@ -54,7 +54,7 @@ class Domain(object):
                 self.os_type = guest.find('os_type').text
                 self.guest_emulator = arch.find('emulator').text
                 self.machine_type = arch.find('machine').get('canonical')
-        fhandle = open("%s/xml/template.xml" % current_dir, 'rw')
+        fhandle = open("%s/xml/template.xml" % ABS_DIR, 'rw')
         xml = fhandle.read()
         tree = ET.ElementTree(ET.fromstring(xml))
         root = tree.getroot()
@@ -70,15 +70,17 @@ class Domain(object):
             host_os.find('type').set('arch', self.conn.getInfo()[0])
             host_os.find('type').set('machine', self.machine_type)
             host_os.find('type').text = self.os_type
+            host_os.find('kernel').text = '%s/osbash/img/pxeboot/vmlinuz' % ABS_DIR
+            host_os.find('initrd').text = '%s/osbash/img/pxeboot/initrd.gz' % ABS_DIR
         for host_cpu in root.findall('cpu'):
             host_cpu.find('model').text = self.host_model
         for devices in root.findall('devices'):
             devices.find('emulator').text = self.guest_emulator
         for devices in root.findall('devices'):
             disk = devices.find('disk')
-            disk.find('source').set('file', '%s/osbash/img/ubuntu-14.04.1-server-amd64.iso' % current_dir)
+            disk.find('source').set('file', '%s/osbash/img/ubuntu-14.04.1-server-amd64.iso' % ABS_DIR)
 
-        tree.write('%s/xml/%s.xml' % (current_dir, domain_name))
+        tree.write('%s/xml/%s.xml' % (ABS_DIR, domain_name))
 
     def create_domain(self, domain_name, memory=1024000):
         '''
@@ -86,9 +88,13 @@ class Domain(object):
         '''
         try:
             self.create_domain_xml(domain_name, memory)
+        except RuntimeError as e:
+            print "Runtime error({0}):{1}".format(e.errno, e.strerror)
+        try:
             fhandle = open('xml/%s.xml' % domain_name, "r")
             xml_description = fhandle.read()
             self.conn.defineXML(xml_description)
+            self.power_on(domain_name)
         except Exception:
             pass
 
