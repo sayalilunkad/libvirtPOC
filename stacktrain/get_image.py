@@ -16,3 +16,21 @@ if DISTRO == 'ubuntu':
         urllib.urlretrieve("http://releases.ubuntu.com/14.04/ubuntu-14.04.1- \
         server-amd64.iso", "%s/osbash/img/ubuntu-14.04.1-server-amd64.iso"
                            % ABS_DIR)
+    print "PXE"
+    directory = "%s/osbash/img/pxeboot" % ABS_DIR
+    if not os.path.exists(directory):
+        os.mkdir(directory)
+    if os.path.exists("%s/osbash/img/pxeboot/vmlinuz"
+                      % ABS_DIR) is True:
+        print 'Kernel image present.'
+    else:
+        print 'Downloading kernel image.'
+        urllib.urlretrieve("http://in.archive.ubuntu.com/ubuntu/dists/trusty/ \
+                main/installer-amd64/current/images/cdrom/vmlinuz", "%s/osbash/img/pxeboot/vmlinuz" % ABS_DIR)
+    if os.path.exists("%s/osbash/img/pxeboot/initrd.gz"
+                      % ABS_DIR) is True:
+        print 'initrd present.'
+    else:
+        print 'Downloading initrd'
+        urllib.urlretrieve("http://in.archive.ubuntu.com/ubuntu/dists/trusty/ \
+                main/installer-amd64/current/images/cdrom/initrd.gz", "%s/osbash/img/pxeboot/initrd.gz" % ABS_DIR)
