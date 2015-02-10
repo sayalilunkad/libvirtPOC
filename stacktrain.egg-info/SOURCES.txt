@@ -1,8 +1,11 @@
 stacktrain/__init__.py
-stacktrain/launch_vm.py
+stacktrain/get_image.py
+stacktrain/network_tasks.py
 stacktrain/poweroff_vm.py
 stacktrain/stacktrain.py
+stacktrain/storage_tasks.py
 stacktrain/test_connection.py
+stacktrain/vm_tasks.py
 stacktrain.egg-info/PKG-INFO
 stacktrain.egg-info/SOURCES.txt
 stacktrain.egg-info/dependency_links.txt
