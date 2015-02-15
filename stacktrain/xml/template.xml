@@ -6,6 +6,7 @@
   <vcpu placement='static'>1</vcpu>
   <os>
     <type arch='' machine=''></type>
+    <boot dev='cdrom'/>
     <boot dev='hd'/>
     <kernel></kernel>
     <initrd></initrd>
@@ -37,9 +38,16 @@
     <emulator></emulator>
     <disk type='file' device='cdrom'>
       <source file=''/>
-      <target dev='hdc'/>
+      <target dev='hdc' bus='ide'/>
+      <address type='drive' controller='0' bus='1' unit='0'/>
       <readonly/>
     </disk>
+  <disk type='file' device='disk'>
+    <driver name='qemu' type='raw' cache='none'/>
+    <source file='/home/sayali/Repositories/stacktrain/stacktrain/osbash/img/glacier.qcow2'/>
+    <target dev='hda' bus='ide'/>
+    <address type='drive' controller='0' bus='0' unit='0'/>
+  </disk>
     <controller type='usb' index='0' model='ich9-ehci1'>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x7'/>
     </controller>
