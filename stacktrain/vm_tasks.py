@@ -76,9 +76,9 @@ class Domain(object):
             host_cpu.find('model').text = self.host_model
         for devices in root.findall('devices'):
             devices.find('emulator').text = self.guest_emulator
-        for devices in root.findall('devices'):
-            disk = devices.find('disk')
-            disk.find('source').set('file', '%s/osbash/img/ubuntu-14.04.1-server-amd64.iso' % ABS_DIR)
+#        for devices in root.findall('devices'):
+#            disk = devices.find('disk')
+#            disk.find('source').set('file', '%s/osbash/img/ubuntu-14.04.1-server-amd64.iso' % ABS_DIR)
 
         tree.write('%s/xml/%s.xml' % (ABS_DIR, domain_name))
 
