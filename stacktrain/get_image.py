@@ -22,9 +22,12 @@ if DISTRO == 'ubuntu':
         print 'Kernel image present.'
     else:
         print 'Downloading kernel image.'
-        urllib.urlretrieve("http://us.archive.ubuntu.com/ubuntu/dists/trusty/main/installer-amd64/current/images/cdrom/vmlinuz", "%s/osbash/img/pxeboot/vmlinuz" % ABS_DIR)
+        urllib.urlretrieve("http://in.archive.ubuntu.com/ubuntu/dists/trusty/main/installer-amd64/20101020ubuntu318/images/netboot/ubuntu-installer/amd64/linux", \
+                           "%s/osbash/img/pxeboot/vmlinuz" % ABS_DIR)
     if os.path.exists("%s/osbash/img/pxeboot/initrd.gz" % ABS_DIR) is True:
         print 'initrd present.'
     else:
         print 'Downloading initrd'
-        urllib.urlretrieve("http://us.archive.ubuntu.com/ubuntu/dists/trusty/main/installer-amd64/current/images/cdrom/initrd.gz", "%s/osbash/img/pxeboot/initrd.gz" % ABS_DIR)
+        urllib.urlretrieve("http://in.archive.ubuntu.com/ubuntu/dists/trusty/main/installer-amd64/20101020ubuntu318/images/netboot/ubuntu-installer/amd64/initrd.gz", \
+                           "%s/osbash/img/pxeboot/initrd.gz" % ABS_DIR)
+
