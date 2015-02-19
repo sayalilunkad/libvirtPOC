@@ -43,42 +43,31 @@ class Domain(object):
         '''
         ABS_DIR = os.path.abspath('vm_tasks.py').rsplit('/', 1)[0]
         capabilities = self.conn.getCapabilities()
-        ctree = ET.ElementTree(ET.fromstring(capabilities))
-        croot = ctree.getroot()
-        for host in croot.findall('host'):
-            cpu = host.find('cpu')
-            self.host_model = cpu.find('model').text
+        croot = ET.fromstring(capabilities)
+        host_arch = croot.findtext('./host/cpu/arch')
+        host_model = croot.findtext('./host/cpu/model')
         for guest in croot.findall('guest'):
-            arch = guest.find('arch')
-            if arch.get('name') == self.conn.getInfo()[0]:
-                self.os_type = guest.find('os_type').text
-                self.guest_emulator = arch.find('emulator').text
-                self.machine_type = arch.find('machine').get('canonical')
+            guest_arch = guest.find('arch').attrib['name']
+            if guest_arch == host_arch:
+                os_type = guest.findtext('os_type')
+                guest_emulator = guest.findtext('./arch/emulator')
+                machine_type = guest.find('./arch/machine').attrib['canonical']
         fhandle = open("%s/xml/template.xml" % ABS_DIR, 'rw')
-        xml = fhandle.read()
-        tree = ET.ElementTree(ET.fromstring(xml))
+        xmld = fhandle.read()
+        tree = ET.ElementTree(ET.fromstring(xmld))
         root = tree.getroot()
-        for name in root.findall('name'):
-            name.text = domain_name
-        for uuid in root.findall('uuid'):
-            uuid.text = str(uid.uuid4())
-        for mem in root.findall('memory'):
-            mem.text = str(memory)
-        for curr_mem in root.findall('currentMemory'):
-            curr_mem.text = str(memory)
-        for host_os in root.findall('os'):
-            host_os.find('type').set('arch', self.conn.getInfo()[0])
-            host_os.find('type').set('machine', self.machine_type)
-            host_os.find('type').text = self.os_type
-            host_os.find('kernel').text = '%s/osbash/img/pxeboot/vmlinuz' % ABS_DIR
-            host_os.find('initrd').text = '%s/osbash/img/pxeboot/initrd.gz' % ABS_DIR
-        for host_cpu in root.findall('cpu'):
-            host_cpu.find('model').text = self.host_model
-        for devices in root.findall('devices'):
-            devices.find('emulator').text = self.guest_emulator
-#        for devices in root.findall('devices'):
-#            disk = devices.find('disk')
-#            disk.find('source').set('file', '%s/osbash/img/ubuntu-14.04.1-server-amd64.iso' % ABS_DIR)
+        root.find('./name').text = domain_name
+        root.find('./uuid').text = str(uid.uuid4())
+        root.find('./memory').text = str(memory)
+        root.find('./currentMemory').text = str(memory)
+        root.find('./os/type').attrib['arch'] = guest_arch
+        root.find('./os/type').attrib['machine'] = machine_type
+        root.find('./os/type').text = os_type
+        root.find('./os/kernel').text = '%s/osbash/img/pxeboot/linux' % ABS_DIR
+        root.find('./os/initrd').text = '%s/osbash/img/pxeboot/initrd.gz' % ABS_DIR
+        root.find('./cpu/model').text = host_model
+        root.find('./devices/emulator').text = guest_emulator
+        root.find('./devices/disk/source').attrib['file'] = '%s/osbash/img/ubuntu-14.04.1-server-amd64.iso' % ABS_DIR
 
         tree.write('%s/xml/%s.xml' % (ABS_DIR, domain_name))
 
