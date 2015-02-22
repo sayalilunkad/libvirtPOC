@@ -52,7 +52,7 @@ class Domain(object):
                 os_type = guest.findtext('os_type')
                 guest_emulator = guest.findtext('./arch/emulator')
                 machine_type = guest.find('./arch/machine').attrib['canonical']
-        fhandle = open("%s/xml/template.xml" % ABS_DIR, 'rw')
+        fhandle = open("%s/xml/init.xml" % ABS_DIR, 'rw')
         xmld = fhandle.read()
         tree = ET.ElementTree(ET.fromstring(xmld))
         root = tree.getroot()
