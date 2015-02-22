@@ -71,7 +71,9 @@ class Domain(object):
 
         tree.write('%s/xml/%s.xml' % (ABS_DIR, domain_name))
 
+
     def create_domain(self, domain_name, memory=1024000):
+
         '''
         Creates a VM as per XML file
         '''
@@ -86,6 +88,7 @@ class Domain(object):
             self.power_on(domain_name)
         except Exception:
             pass
+
 
     def destroy_domain(self, domain_name):
         '''
