@@ -6,6 +6,7 @@
   <vcpu placement='static'>1</vcpu>
   <os>
     <type arch='' machine=''></type>
+    <boot dev='hd'/>
     <kernel></kernel>
     <initrd></initrd>
     <cmdline>method=http://us.archive.ubuntu.com/ console=ttyS0 console=tty \
@@ -16,7 +17,7 @@
 	mirror/country=US mirror/http/directory=/ubuntu mirror/http/mirror=archive.ubuntu.com mirror/protocol=http mirror/http/proxy= \
 	preseed/url=http://git.openstack.org/cgit/openstack/training-guides/plain/labs/lib/osbash/netboot/preseed-ssh.cfg \
     </cmdline>
-    <boot dev='hd'/>
+    <boot dev='cdrom'/>
   </os>
   <features>
     <acpi/>
@@ -32,7 +33,7 @@
     <timer name='hpet' present='no'/>
   </clock>
   <on_poweroff>destroy</on_poweroff>
-  <on_reboot>restart</on_reboot>
+  <on_reboot>destroy</on_reboot>
   <on_crash>restart</on_crash>
   <devices>
     <emulator></emulator>
@@ -47,7 +48,7 @@
     </disk>
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2'/>
-      <source file='/home/sayali/guest.qcow2'/>
+      <source file='/home/dbyte/Hack_Shit/stacktrain/stacktrain/osbash/img/test1.qcow2'/>
       <backingStore/>
       <target dev='hda' bus='ide'/>
       <alias name='ide0-0-0' />

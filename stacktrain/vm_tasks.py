@@ -68,7 +68,6 @@ class Domain(object):
         root.find('./cpu/model').text = host_model
         root.find('./devices/emulator').text = guest_emulator
         root.find('./devices/disk/source').attrib['file'] = '%s/osbash/img/ubuntu-14.04.1-server-amd64.iso' % ABS_DIR
-
         tree.write('%s/xml/%s.xml' % (ABS_DIR, domain_name))
 
 
