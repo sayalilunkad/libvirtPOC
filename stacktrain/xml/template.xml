@@ -8,12 +8,13 @@
     <type arch='' machine=''></type>
     <kernel></kernel>
     <initrd></initrd>
-    <cmdline>method=http://in.archive.ubuntu.com/ console=ttyS0 console=tty \
+    <cmdline>method=http://us.archive.ubuntu.com/ console=ttyS0 console=tty \
         locale=en_US.UTF-8 console-keymaps-at/keymap=us \
         console-setup/ask_detect=false console-setup/layoutcode=us \
         keyboard-configuration/layout=USA keyboard-configuration/variant=US \
-        netcfg/get_hostname=osbash netcfg/get_domainname=local \
-        preseed/url=http://git.openstack.org/cgit/openstack/training-guides/plain/labs/lib/osbash/netboot/preseed-ssh.cfg
+	netcfg/get_hostname=osbash netcfg/get_domainname=local \
+	mirror/country=US mirror/http/directory=/ubuntu mirror/http/mirror=archive.ubuntu.com mirror/protocol=http mirror/http/proxy= \
+	preseed/url=http://git.openstack.org/cgit/openstack/training-guides/plain/labs/lib/osbash/netboot/preseed-ssh.cfg \
     </cmdline>
     <boot dev='cdrom'/>
   </os>
