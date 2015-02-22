@@ -16,7 +16,7 @@
 	mirror/country=US mirror/http/directory=/ubuntu mirror/http/mirror=archive.ubuntu.com mirror/protocol=http mirror/http/proxy= \
 	preseed/url=http://git.openstack.org/cgit/openstack/training-guides/plain/labs/lib/osbash/netboot/preseed-ssh.cfg \
     </cmdline>
-    <boot dev='cdrom'/>
+    <boot dev='hd'/>
   </os>
   <features>
     <acpi/>
