@@ -5,6 +5,11 @@ import os
 import uuid as uid
 from xml.etree import ElementTree as ET
 
+import network_tasks as network
+import storage_tasks as storage
+
+ABS_DIR = os.path.abspath('vm_tasks.py').rsplit('/', 1)[0]
+
 
 class Domain(object):
 
@@ -41,7 +46,6 @@ class Domain(object):
         '''
         Creates XML for domain
         '''
-        ABS_DIR = os.path.abspath('vm_tasks.py').rsplit('/', 1)[0]
         capabilities = self.conn.getCapabilities()
         croot = ET.fromstring(capabilities)
         host_arch = croot.findtext('./host/cpu/arch')
@@ -67,7 +71,11 @@ class Domain(object):
         root.find('./os/initrd').text = '%s/osbash/img/pxeboot/initrd.gz' % ABS_DIR
         root.find('./cpu/model').text = host_model
         root.find('./devices/emulator').text = guest_emulator
-        root.find('./devices/disk/source').attrib['file'] = '%s/osbash/img/ubuntu-14.04.1-server-amd64.iso' % ABS_DIR
+        for d in root.findall('./devices/disk'):
+            if d.attrib['device'] == 'cdrom':
+                d.find('./source').attrib['file'] = '%s/osbash/img/ubuntu-14.04.1-server-amd64.iso' % ABS_DIR
+            elif d.attrib['device'] == 'disk':
+                d.find('./source').attrib['file'] = '%s/osbash/img/test.qcow2' % ABS_DIR
         tree.write('%s/xml/%s.xml' % (ABS_DIR, domain_name))
 
 
