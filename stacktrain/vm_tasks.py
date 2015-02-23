@@ -56,7 +56,7 @@ class Domain(object):
                 os_type = guest.findtext('os_type')
                 guest_emulator = guest.findtext('./arch/emulator')
                 machine_type = guest.find('./arch/machine').attrib['canonical']
-        fhandle = open("%s/xml/init.xml" % ABS_DIR, 'rw')
+        fhandle = open("%s/xml/%s.xml" % (ABS_DIR, domain_name), 'rw')
         xmld = fhandle.read()
         tree = ET.ElementTree(ET.fromstring(xmld))
         root = tree.getroot()
@@ -67,8 +67,6 @@ class Domain(object):
         root.find('./os/type').attrib['arch'] = guest_arch
         root.find('./os/type').attrib['machine'] = machine_type
         root.find('./os/type').text = os_type
-        root.find('./os/kernel').text = '%s/osbash/img/pxeboot/linux' % ABS_DIR
-        root.find('./os/initrd').text = '%s/osbash/img/pxeboot/initrd.gz' % ABS_DIR
         root.find('./cpu/model').text = host_model
         root.find('./devices/emulator').text = guest_emulator
         for d in root.findall('./devices/disk'):
@@ -76,8 +74,10 @@ class Domain(object):
                 d.find('./source').attrib['file'] = '%s/osbash/img/ubuntu-14.04.1-server-amd64.iso' % ABS_DIR
             elif d.attrib['device'] == 'disk':
                 d.find('./source').attrib['file'] = '%s/osbash/img/test.qcow2' % ABS_DIR
+        if domain_name == 'init':
+            root.find('./os/kernel').text = '%s/osbash/img/pxeboot/linux' % ABS_DIR
+            root.find('./os/initrd').text = '%s/osbash/img/pxeboot/initrd.gz' % ABS_DIR
         tree.write('%s/xml/%s.xml' % (ABS_DIR, domain_name))
-
 
     def create_domain(self, domain_name, memory=1024000):
 
@@ -89,13 +89,12 @@ class Domain(object):
         except RuntimeError as e:
             print "Runtime error({0}):{1}".format(e.errno, e.strerror)
         try:
-            fhandle = open('xml/%s.xml' % domain_name, "r")
+            fhandle = open('xml/%s.xml' % domain_name , "r")
             xml_description = fhandle.read()
             self.conn.defineXML(xml_description)
             self.power_on(domain_name)
         except Exception:
             pass
-
 
     def destroy_domain(self, domain_name):
         '''
