@@ -37,7 +37,7 @@
     </disk>
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2'/>
-      <source file='/home/pranav/Hack_Stuff/stacktrain/stacktrain/osbash/img/test1.qcow2'/>
+      <source file=''/>
       <backingStore/>
       <target dev='hda' bus='ide'/>
       <alias name='ide0-0-0' />
