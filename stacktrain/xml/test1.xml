@@ -1,0 +1,116 @@
+<domain type="kvm">
+  <name>test1</name>
+  <uuid>2c76fb12-8bcc-4fed-bb90-3930251b9cea</uuid>
+  <memory unit="KiB">1024000</memory>
+  <currentMemory unit="KiB">1024000</currentMemory>
+  <vcpu placement="static">1</vcpu>
+  <os>
+    <type arch="x86_64" machine="pc-i440fx-2.2">hvm</type>
+    <kernel>/home/pranav/Hack_Shit/stacktrain/stacktrain/osbash/img/pxeboot/linux</kernel>
+    <initrd>/home/pranav/Hack_Shit/stacktrain/stacktrain/osbash/img/pxeboot/initrd.gz</initrd>
+    <cmdline>method=http://us.archive.ubuntu.com/ console=ttyS0 console=tty \
+        locale=en_US.UTF-8 console-keymaps-at/keymap=us \
+        console-setup/ask_detect=false console-setup/layoutcode=us \
+        keyboard-configuration/layout=USA keyboard-configuration/variant=US \
+	netcfg/get_hostname=osbash netcfg/get_domainname=local \
+	mirror/country=US mirror/http/directory=/ubuntu mirror/http/mirror=archive.ubuntu.com mirror/protocol=http mirror/http/proxy= \
+	preseed/url=http://git.openstack.org/cgit/openstack/training-guides/plain/labs/lib/osbash/netboot/preseed-ssh.cfg \
+    </cmdline>
+  </os>
+  <features>
+    <acpi />
+    <apic />
+    <pae />
+  </features>
+  <cpu match="exact" mode="custom">
+    <model fallback="allow">SandyBridge</model>
+  </cpu>
+  <clock offset="utc">
+    <timer name="rtc" tickpolicy="catchup" />
+    <timer name="pit" tickpolicy="delay" />
+    <timer name="hpet" present="no" />
+  </clock>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>destroy</on_reboot>
+  <on_crash>destroy</on_crash>
+  <devices>
+    <emulator>/usr/bin/qemu-system-x86_64</emulator>
+    <disk device="cdrom" type="file">
+      <driver name="qemu" type="raw" />
+      <source file="/home/pranav/Hack_Shit/stacktrain/stacktrain/osbash/img/ubuntu-14.04.1-server-amd64.iso" />
+      <backingStore />
+      <target bus="ide" dev="hdb" />
+      <alias name="ide0-0-1" />
+      <address bus="0" controller="0" type="drive" unit="1" />
+      <readonly />
+    </disk>
+    <disk device="disk" type="file">
+      <driver name="qemu" type="qcow2" />
+      <source file="/home/pranav/Hack_Shit/stacktrain/stacktrain/osbash/img/test1.qcow2" />
+      <backingStore />
+      <target bus="ide" dev="hda" />
+      <alias name="ide0-0-0" />
+      <address bus="0" controller="0" target="0" type="drive" unit="0" />
+    </disk>
+    <controller index="0" model="ich9-ehci1" type="usb">
+      <address bus="0x00" domain="0x0000" function="0x7" slot="0x05" type="pci" />
+    </controller>
+    <controller index="0" model="ich9-uhci1" type="usb">
+      <master startport="0" />
+      <address bus="0x00" domain="0x0000" function="0x0" multifunction="on" slot="0x05" type="pci" />
+    </controller>
+    <controller index="0" model="ich9-uhci2" type="usb">
+      <master startport="2" />
+      <address bus="0x00" domain="0x0000" function="0x1" slot="0x05" type="pci" />
+    </controller>
+    <controller index="0" model="ich9-uhci3" type="usb">
+      <master startport="4" />
+      <address bus="0x00" domain="0x0000" function="0x2" slot="0x05" type="pci" />
+    </controller>
+    <controller index="0" model="pci-root" type="pci" />
+    <controller index="0" type="ide">
+      <address bus="0x00" domain="0x0000" function="0x1" slot="0x01" type="pci" />
+    </controller>
+    <controller index="0" type="virtio-serial">
+      <address bus="0x00" domain="0x0000" function="0x0" slot="0x06" type="pci" />
+    </controller>
+    <interface type="network">
+      <mac address="52:54:00:9c:94:3b" />
+      <source network="default" />
+      <model type="virtio" />
+      <address bus="0x00" domain="0x0000" function="0x0" slot="0x03" type="pci" />
+    </interface>
+    <serial type="pty">
+      <target port="0" />
+    </serial>
+    <console type="pty">
+      <target port="0" type="serial" />
+    </console>
+    <channel type="spicevmc">
+      <target name="com.redhat.spice.0" type="virtio" />
+      <address bus="0" controller="0" port="1" type="virtio-serial" />
+    </channel>
+    <input bus="usb" type="tablet" />
+    <input bus="ps2" type="mouse" />
+    <input bus="ps2" type="keyboard" />
+    <graphics autoport="yes" type="spice" />
+    <sound model="ich6">
+      <address bus="0x00" domain="0x0000" function="0x0" slot="0x04" type="pci" />
+    </sound>
+    <video>
+      <model heads="1" ram="65536" type="qxl" vgamem="8192" vram="65536" />
+      <address bus="0x00" domain="0x0000" function="0x0" slot="0x02" type="pci" />
+    </video>
+    <redirdev bus="usb" type="spicevmc">
+    </redirdev>
+    <redirdev bus="usb" type="spicevmc">
+    </redirdev>
+    <redirdev bus="usb" type="spicevmc">
+    </redirdev>
+    <redirdev bus="usb" type="spicevmc">
+    </redirdev>
+    <memballoon model="virtio">
+      <address bus="0x00" domain="0x0000" function="0x0" slot="0x08" type="pci" />
+    </memballoon>
+  </devices>
+</domain>

@@ -14,7 +14,7 @@
         keyboard-configuration/layout=USA keyboard-configuration/variant=US \
 	netcfg/get_hostname=osbash netcfg/get_domainname=local \
 	mirror/country=US mirror/http/directory=/ubuntu mirror/http/mirror=archive.ubuntu.com mirror/protocol=http mirror/http/proxy= \
-	preseed/url=http://git.openstack.org/cgit/openstack/training-guides/plain/labs/lib/osbash/netboot/preseed-ssh.cfg \
+	preseed/url=https://raw.githubusercontent.com/dguitarbite/stacktrain/master/stacktrain/osbash/lib/osbash/netboot/preseed-ssh.cfg \
     </cmdline>
   </os>
   <features>
@@ -46,7 +46,7 @@
     </disk>
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2'/>
-      <source file='/home/pranav/Hack_Stuff/stacktrain/stacktrain/osbash/img/test1.qcow2'/>
+      <source file='/home/pranav/Hack_Shit/stacktrain/stacktrain/osbash/img/test1.qcow2'/>
       <backingStore/>
       <target dev='hda' bus='ide'/>
       <alias name='ide0-0-0' />
