@@ -106,7 +106,6 @@ class Domain(object):
             if virDomain_obj.ID() in active_domains:
                 virDomain_obj.destroy()
             virDomain_obj.undefine()
-            os.remove('xml/%s.xml' % domain_name)
         except Exception:
             pass
 
