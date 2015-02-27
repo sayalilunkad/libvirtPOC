@@ -6,15 +6,16 @@ import uuid
 
 class Network:
 
-    def __init__(self):
+    def __init__(self,name, network_ip):
 
         uri = 'qemu:///system'
         self.conn = libvirt.open(uri)
         self.xmlDesc = '''
 <network ipv6='yes'>
-    <name>stacktrain_test_net</name>
-    <uuid>7a3b7497-1ec7-8aef-6d5c-38dff9109e93</uuid>
-    <bridge name="virbr10" stp="on" delay="0" />
+    <name>'''+name+'''</name>
+    <uuid></uuid>
+    <ip address="'''+network_ip+'''" netmask="255.255.255.0"/>
+    <bridge name="virbr12" stp="on" delay="0" />
     <mac address='00:16:3E:5D:C7:9E'/>
 </network>
         '''

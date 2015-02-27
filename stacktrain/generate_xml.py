@@ -63,8 +63,12 @@ class GenerateXml(object):
                 d.find('./source').attrib['file'] = \
                     '%s/osbash/img/ubuntu-14.04.1-server-amd64.iso' % ABS_DIR
             elif d.attrib['device'] == 'disk':
-                d.find('./source').attrib['file'] = \
-                    '%s/osbash/img/test.qcow2' % ABS_DIR
+                if boot_type == 'kernel':
+                    d.find('./source').attrib['file'] = \
+                        '%s/osbash/img/base.qcow2' % ABS_DIR
+                else:
+                    d.find('./source').attrib['file'] = \
+                        '%s/osbash/img/%s.qcow2' % (ABS_DIR, domain_name)
         if boot_type == 'kernel':
             root.find('./os/kernel').text = \
                 '%s/osbash/img/pxeboot/linux' % ABS_DIR

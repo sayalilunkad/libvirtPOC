@@ -18,7 +18,7 @@ if DISTRO == 'ubuntu':
     directory = "%s/osbash/img/pxeboot" % ABS_DIR
     if not os.path.exists(directory):
         os.mkdir(directory)
-    if os.path.exists("%s/osbash/img/pxeboot/vmlinuz" % ABS_DIR) is True:
+    if os.path.exists("%s/osbash/img/pxeboot/linux" % ABS_DIR) is True:
         print 'Kernel image present.'
     else:
         print 'Downloading kernel image.'
