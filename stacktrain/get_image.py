@@ -7,6 +7,7 @@ import urllib
 
 DISTRO = 'ubuntu'
 ABS_DIR = os.path.abspath(sys.argv[0]).rsplit('/', 1)[0]
+os.makedirs(ABS_DIR+'/osbash/img/pxeboot/')
 if DISTRO == 'ubuntu':
     if os.path.exists("%s/osbash/img/ubuntu-14.04.1-server-amd64.iso"
                       % ABS_DIR) is True:

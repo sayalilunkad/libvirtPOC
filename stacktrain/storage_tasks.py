@@ -45,7 +45,7 @@ class Storage:
 
     def createStorageVol(self):
 
-        try:
+        try :
             pool = self.conn.storagePoolLookupByName(self.storagePoolName)
         except Exception:
             self.createStoragePool()
@@ -66,9 +66,27 @@ class Storage:
         storageRoot = storageTree.getroot()
         storageRoot.find('./name').text = self.diskName
         storageRoot.find('./capacity').text = str(self.diskSize)
+
         for target in storageRoot.findall('target'):
             target.find('./path').text = self.storageDiskPath
+
         storageTree.write(self.disktemplate)
+
+        return storageTree
+
+    def cloneStorageVol(self, newVolumeName):
+
+        createflag = 0
+        createflag |= libvirt.VIR_STORAGE_VOL_CREATE_PREALLOC_METADATA
+        base_disk = self.diskName
+        self.diskName = newVolumeName
+        self._createStorageDiskXML()
+        fhandle = open(self.disktemplate, 'r')
+        cloneDiskXML = fhandle.read()
+        pool = self.conn.storagePoolLookupByName(self.storagePoolName)
+        pool.createXMLFrom(cloneDiskXML,
+                           pool.storageVolLookupByName(base_disk), createflag)
+        self.diskName = base_disk
 
         return True
 
@@ -76,8 +94,8 @@ class Storage:
 
         pool = self.conn.storagePoolLookupByName(self.storagePoolName)
         try:
-            pool.delete()
             pool.destroy()
+            pool.delete()
         except Exception:
             print("Storage Pool does not exist")
 
