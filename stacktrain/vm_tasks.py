@@ -4,7 +4,7 @@ import libvirt
 import os
 import generate_xml
 # import network_tasks
-# import storage_tasks
+import storage_tasks
 
 ABS_DIR = os.path.abspath('vm_tasks.py').rsplit('/', 1)[0]
 
@@ -45,6 +45,11 @@ class Domain(object):
         '''
         Creates a VM as per XML file
         '''
+        if boot_type == 'kernel':
+            self.createBootVol()
+        else :
+            self.createOtherVols()
+
         xml = generate_xml.GenerateXml()
         xml.fill_xml_details(domain_name, boot_type, memory)
         try:
@@ -80,3 +85,18 @@ class Domain(object):
             virDomain_obj.snapshotCreateXML(xmlDesc, 0)
         except Exception:
             pass
+
+    def createBootVol(self):
+
+        storage = storage_tasks.Storage('base.qcow2', ABS_DIR + '/osbash/img/',
+                                        20)
+        storage.createStoragePool()
+        storage.createStorageVol()
+        storage.close()
+
+    def createOtherVols(self):
+
+        storage = storage_tasks.Storage('base.qcow2', ABS_DIR + '/osbash/img/',
+                                        20)
+        for vol_name in [ 'controller.qcow2', 'network.qcow2', 'compute.qcow2']:
+           storage.cloneStorageVol(disk_name)

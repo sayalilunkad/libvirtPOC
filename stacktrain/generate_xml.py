@@ -43,7 +43,7 @@ class GenerateXml(object):
         if boot_type == 'kernel':
             template = "%s/xml/template1.xml" % ABS_DIR
         else:
-            template = "%s/xml/template2.xml" % ABS_DIR
+            template = "%s/xml/%s.xml" % (ABS_DIR, domain_name)
 
         fhandle = open(template, 'rw')
         xmld = fhandle.read()
