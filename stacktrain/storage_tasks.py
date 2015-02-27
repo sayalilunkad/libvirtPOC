@@ -24,9 +24,13 @@ class Storage:
         self._createStoragePoolXML()
         fhandle = open(self.pooltemplate, 'r')
         poolXML = fhandle.read()
-        pool = self.conn.storagePoolDefineXML(poolXML)
-        pool.setAutostart(1)
-        pool.create()
+
+        try:
+            pool = self.conn.storagePoolDefineXML(poolXML)
+            pool.setAutostart(1)
+            pool.create()
+        except:
+            print "Pool already exists"
 
         return True
 
