@@ -1,29 +1,107 @@
 #!/usr/bin/python
 
-import subprocess
+import xml.etree.ElementTree as ET
+import libvirt
 import os
+
 
 class Storage:
 
-    def __init__(self, path, name):
+    def __init__(self, diskName, storagePoolPath, diskSize=8,
+                 storagePoolName="stacktrain"):
 
-        self.canonicalpath = path + '/' + name
+        self.diskName = diskName
+        self.diskSize = diskSize
+        self.storagePoolPath = storagePoolPath
+        self.storagePoolName = storagePoolName
+        self.disktemplate = os.getcwd() + '/xml/storage/' + 'disk-template.xml'
+        self.pooltemplate = os.getcwd() + '/xml/storage/' + 'pool-template.xml'
+        self.storageDiskPath = self.storagePoolPath + '/' + self.diskName
+        self.conn = libvirt.open('qemu:///system')
 
-    def create_disk(self):
+    def createStoragePool(self):
 
-        createdisk = 'fallocate -l 8192M '+ self.canonicalpath
-        log = subprocess.Popen(createdisk.split(), stdout=subprocess.PIPE)
-        log.communicate()[0]
+        self._createStoragePoolXML()
+        fhandle = open(self.pooltemplate, 'r')
+        poolXML = fhandle.read()
+        pool = self.conn.storagePoolDefineXML(poolXML)
+        pool.setAutostart(1)
+        pool.create()
+
         return True
 
-    def destroy_disk(self):
+    def _createStoragePoolXML(self):
 
-        os.remove(self.canonicalpath)
+        storageTree = ET.parse(self.pooltemplate)
+        storageRoot = storageTree.getroot()
+        storageRoot.find('./name').text = self.storagePoolName
+
+        for target in storageRoot.findall('target'):
+            target.find('./path').text = self.storagePoolPath
+
+        storageTree.write(self.pooltemplate)
+
+        return True
+
+    def createStorageVol(self):
+
+        try:
+            pool = self.conn.storagePoolLookupByName(self.storagePoolName)
+        except Exception:
+            self.createStoragePool()
+            pool = self.conn.storagePoolLookupByName(self.storagePoolName)
+
+        self._createStorageDiskXML()
+        metadataFlag = 0
+        metadataFlag |= libvirt.VIR_STORAGE_VOL_CREATE_PREALLOC_METADATA
+        fhandle = open(self.disktemplate, 'r')
+        storageXML = fhandle.read()
+        pool.createXML(storageXML, metadataFlag)
+
+        return True
+
+    def _createStorageDiskXML(self):
+
+        storageTree = ET.parse(self.disktemplate)
+        storageRoot = storageTree.getroot()
+        storageRoot.find('./name').text = self.diskName
+        storageRoot.find('./capacity').text = str(self.diskSize)
+        for target in storageRoot.findall('target'):
+            target.find('./path').text = self.storageDiskPath
+        storageTree.write(self.disktemplate)
+
+        return True
+
+    def destroyStoragePool(self):
+
+        pool = self.conn.storagePoolLookupByName(self.storagePoolName)
+        try:
+            pool.delete()
+            pool.destroy()
+        except Exception:
+            print("Storage Pool does not exist")
+
+        try:
+            pool.undefine()
+        except:
+            print("Storage Pool cannot be undefined")
+
         return True
 
     def list_disk(self):
 
-        return self.canonicalpath
+        try:
+            pool = self.conn.storagePoolLookupByName(self.storagePoolName)
+            diskNames = pool.listAllVolumes()
+
+            for diskname in diskNames:
+                diskname = diskname.name()
+
+            return diskNames
+
+        except Exception:
+            print('storage pool does not exist')
+            return False
 
     def close(self):
         self.conn.close()
