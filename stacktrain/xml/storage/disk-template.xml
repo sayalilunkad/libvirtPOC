@@ -6,7 +6,7 @@
   <capacity unit='GiB'></capacity>
   <allocation unit='bytes'>1519616</allocation>
   <target>
-    <path>/home/pranav/Hack_Shit/stacktrain/stacktrain/osbash/img/test1.qcow2</path>
+    <path></path>
     <format type='qcow2'/>
     <permissions>
       <mode>0644</mode>

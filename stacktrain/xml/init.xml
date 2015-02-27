@@ -1,6 +1,6 @@
 <domain type="kvm">
   <name>init</name>
-  <uuid>dfb199a6-065d-427a-bdc6-0c05c7750e0c</uuid>
+  <uuid>f1a750ae-fdc2-433c-808e-5afc0da4909b</uuid>
   <memory unit="KiB">1024000</memory>
   <currentMemory unit="KiB">1024000</currentMemory>
   <vcpu placement="static">1</vcpu>
@@ -14,7 +14,7 @@
         keyboard-configuration/layout=USA keyboard-configuration/variant=US \
 	netcfg/get_hostname=osbash netcfg/get_domainname=local \
 	mirror/country=US mirror/http/directory=/ubuntu mirror/http/mirror=archive.ubuntu.com mirror/protocol=http mirror/http/proxy= \
-    preseed/url=https://raw.githubusercontent.com/dguitarbite/stacktrain/pranav/stacktrain/osbash/lib/osbash/netboot/preseed-ssh.cfg
+    preseed/url=http://git.openstack.org/cgit/openstack/training-guides/plain/labs/lib/osbash/netboot/preseed-ssh.cfg
     </cmdline>
   </os>
   <features>

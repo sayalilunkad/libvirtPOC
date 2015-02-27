@@ -45,7 +45,7 @@ class Storage:
 
     def createStorageVol(self):
 
-        try:
+        try :
             pool = self.conn.storagePoolLookupByName(self.storagePoolName)
         except Exception:
             self.createStoragePool()
