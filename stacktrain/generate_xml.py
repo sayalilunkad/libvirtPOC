@@ -67,8 +67,12 @@ class GenerateXml(object):
                     d.find('./source').attrib['file'] = \
                         '%s/osbash/img/base.qcow2' % ABS_DIR
                 else:
-                    d.find('./source').attrib['file'] = \
-                        '%s/osbash/img/%s.qcow2' % (ABS_DIR, domain_name)
+                    if domain_name == 'template2':
+                        d.find('./source').attrib['file'] = \
+                            '%s/osbash/img/base.qcow2' % ABS_DIR
+                    else:
+                        d.find('./source').attrib['file'] = \
+                            '%s/osbash/img/%s.qcow2' % (ABS_DIR, domain_name)
         if boot_type == 'kernel':
             root.find('./os/kernel').text = \
                 '%s/osbash/img/pxeboot/linux' % ABS_DIR
