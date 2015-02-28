@@ -100,7 +100,7 @@ sudo rm -f /var/lib/cinder/cinder.sqlite
 # Verify the Block Storage installation
 # http://docs.openstack.org/juno/install-guide/install/apt/content/cinder-verify.html
 #------------------------------------------------------------------------------
-
+'''
 echo "Verifying Block Storage installation on controller node."
 
 echo "Sourcing the admin credentials."
@@ -129,3 +129,4 @@ node_ssh controller-mgmt "$AUTH; cinder delete demo-volume1"
 
 echo "cinder list"
 node_ssh controller-mgmt "$AUTH; cinder list"
+'''

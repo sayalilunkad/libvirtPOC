@@ -28,7 +28,7 @@ sudo service neutron-lbaas-agent restart
 #------------------------------------------------------------------------------
 # Verify the neutron LBaaS installation
 #------------------------------------------------------------------------------
-
+'''
 echo "Verifying neutron lbaas installation."
 
 echo "Waiting for neutron-lbaas-agent to start."
@@ -55,3 +55,4 @@ node_ssh controller-mgmt "$AUTH; neutron lb-pool-delete test-lb$LB_NUMBER"
 
 echo "neutron lb-pool-list"
 node_ssh controller-mgmt "$AUTH; neutron lb-pool-list"
+'''
