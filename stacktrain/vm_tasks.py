@@ -47,8 +47,8 @@ class Domain(object):
         '''
         if boot_type == 'kernel':
             self.createBootVol()
-        else :
-            self.createOtherVols()
+        else:
+            self.createOtherVols(domain_name)
 
         xml = generate_xml.GenerateXml()
         xml.fill_xml_details(domain_name, boot_type, memory)
@@ -88,15 +88,15 @@ class Domain(object):
 
     def createBootVol(self):
 
-        storage = storage_tasks.Storage('base.qcow2', ABS_DIR + '/osbash/img/',
+        storage = storage_tasks.Storage('base.qcow2', ABS_DIR + '/osbash/img',
                                         20)
         storage.createStoragePool()
         storage.createStorageVol()
         storage.close()
 
-    def createOtherVols(self):
+    def createOtherVols(self, disk_name):
 
-        storage = storage_tasks.Storage('base.qcow2', ABS_DIR + '/osbash/img/',
+        storage = storage_tasks.Storage('base.qcow2', ABS_DIR + '/osbash/img',
                                         20)
-        for vol_name in [ 'controller.qcow2', 'network.qcow2', 'compute.qcow2']:
-           storage.cloneStorageVol(disk_name)
+
+        storage.cloneStorageVol(disk_name + '.qcow2')

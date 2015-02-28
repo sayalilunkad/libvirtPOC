@@ -1,7 +1,7 @@
-<pool type='dir'>
-  <name></name>
+<pool type="dir">
+  <name>stacktrain</name>
   <target>
-    <path></path>
+    <path>/home/sayali/Repositories/stacktrain/stacktrain/osbash/img</path>
     <permissions>
       <mode>0755</mode>
       <owner>-1</owner>
@@ -9,4 +9,3 @@
     </permissions>
   </target>
 </pool>
-

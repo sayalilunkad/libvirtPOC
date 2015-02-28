@@ -55,6 +55,9 @@ class Storage:
             self.createStoragePool()
             pool = self.conn.storagePoolLookupByName(self.storagePoolName)
 
+        if not pool.isActive():
+            pool.create()
+
         self._createStorageDiskXML()
         metadataFlag = 0
         metadataFlag |= libvirt.VIR_STORAGE_VOL_CREATE_PREALLOC_METADATA
@@ -88,6 +91,10 @@ class Storage:
         fhandle = open(self.disktemplate, 'r')
         cloneDiskXML = fhandle.read()
         pool = self.conn.storagePoolLookupByName(self.storagePoolName)
+
+        if not pool.isActive():
+            pool.create()
+
         pool.createXMLFrom(cloneDiskXML,
                            pool.storageVolLookupByName(base_disk), createflag)
         self.diskName = base_disk
