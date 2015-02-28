@@ -2,7 +2,7 @@ import vm_tasks
 import network_tasks
 import os
 import time
-"""
+
 print "Fetching required images"
 os.system("python2 get_image.py")
 
@@ -39,6 +39,7 @@ time.sleep(30)
 os.system("fab net_controller controller")
 vm.power_off('controller')
 time.sleep(30)
+
 print "Creating compute node"
 vm = vm_tasks.Domain()
 vm.create_domain('compute', 'hd')
@@ -53,12 +54,11 @@ time.sleep(30)
 vm.power_on('compute')
 time.sleep(30)
 os.system("fab net_compute compute")
-"""
-vm = vm_tasks.Domain()
 vm.power_off('controller')
 time.sleep(30)
 vm.power_off('compute')
 time.sleep(30)
+
 print "Creating network node"
 vm.create_domain('network', 'hd')
 time.sleep(30)
