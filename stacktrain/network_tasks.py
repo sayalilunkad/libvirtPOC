@@ -6,7 +6,7 @@ import uuid
 
 class Network:
 
-    def __init__(self,name, network_ip):
+    def __init__(self,name, network_ip, bridge):
 
         uri = 'qemu:///system'
         self.conn = libvirt.open(uri)
@@ -15,7 +15,7 @@ class Network:
     <name>'''+name+'''</name>
     <uuid></uuid>
     <ip address="'''+network_ip+'''" netmask="255.255.255.0"/>
-    <bridge name="virbr12" stp="on" delay="0" />
+    <bridge name="'''+bridge+'''" stp="on" delay="0" />
     <mac address='00:16:3E:5D:C7:9E'/>
 </network>
         '''
