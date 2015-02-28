@@ -20,14 +20,14 @@ def autostart(source):
 def base():
     run('mkdir autostart')
     run('mkdir log')
-    put(ABS_DIR + 'osbash/config', '/home/osbash')
-    put(ABS_DIR + 'osbash/lib', '/home/osbash')
+    put(ABS_DIR + '/osbash/config', '/home/osbash')
+    put(ABS_DIR + '/osbash/lib', '/home/osbash')
 
     autostart(ABS_DIR + '/osbash/scripts/osbash/base_fixups.sh')
-    autostart(ABS_DIR + 'osbash/scripts/ubuntu/apt_init.sh')
-    autostart(ABS_DIR + 'osbash/scripts/ubuntu/apt_pre-download.sh')
-    autostart(ABS_DIR + 'osbash/scripts/zero_empty.sh')
-    autostart(ABS_DIR + 'osbash/scripts/shutdown.sh')
+    autostart(ABS_DIR + '/osbash/scripts/ubuntu/apt_init.sh')
+    autostart(ABS_DIR + '/osbash/scripts/ubuntu/apt_pre-download.sh')
+    autostart(ABS_DIR + '/osbash/scripts/zero_empty.sh')
+    autostart(ABS_DIR + '/osbash/scripts/shutdown.sh')
 
 
 def controller():
@@ -35,6 +35,8 @@ def controller():
     run('rm -rf /home/osbash/log')
     run('mkdir autostart')
     run('mkdir log')
+    put(ABS_DIR + '/osbash/config', '/home/osbash')
+    put(ABS_DIR + '/osbash/lib', '/home/osbash')
 
     autostart(ABS_DIR + '/osbash/scripts/osbash/init_controller_node.sh')
     autostart(ABS_DIR + '/osbash/scripts/etc_hosts.sh')

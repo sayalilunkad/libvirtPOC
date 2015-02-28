@@ -1,7 +1,7 @@
 import vm_tasks
 import network_tasks
 import os
-
+import time
 
 os.system("python2 get_image.py")
 print "Create the networks"
@@ -18,11 +18,18 @@ vm = vm_tasks.Domain()
 vm.create_domain('base', 'kernel')
 vm.destroy_domain('base')
 vm.create_domain('template2', 'hd')
+time.sleep(10)
 os.system("fab base")
 vm.destroy_domain('template2')
 vm.create_domain('controller', 'hd')
+time.sleep(10)
+vm.power_off('controller')
+vm.power_on('controller')
+time.sleep(10)
 os.system("fab controller")
 vm.create_domain('compute', 'hd')
+time.sleep(10)
 os.system("fab compute")
 vm.create_domain('network', 'hd')
+time.sleep(10)
 os.system("fab network")
