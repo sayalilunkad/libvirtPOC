@@ -93,7 +93,10 @@ function vm_ssh {
 
     check_vagrant_private_key
 
-    ssh -q \
+    # Some operating systems (e.g., Mac OS X) export locale settings to the
+    # target that cause some Python clients to fail. Override with a standard
+    # setting (LC_ALL=C).
+    LC_ALL=C ssh -q \
         -i "$LIB_DIR/vagrant-ssh-keys/vagrant" \
         -o "UserKnownHostsFile /dev/null" \
         -o "StrictHostKeyChecking no" \
@@ -104,7 +107,7 @@ function vm_ssh {
 function wait_for_ssh {
     local ssh_port=$1
 
-    echo "Waiting for ssh server to respond on local port $ssh_port"
+    echo -n "Waiting for ssh server to respond on local port $ssh_port."
     while [ : ]; do
         if vm_ssh "$ssh_port" exit ; then
             break
@@ -113,6 +116,7 @@ function wait_for_ssh {
             sleep 1
         fi
     done
+    echo
 }
 
 # Copy one script to VM and execute it via ssh; log output to separate file
@@ -377,11 +381,20 @@ function autostart_from_config {
     # are free to mess with the standard file descriptors.
     exec 3< "$config_path"
     while read -r field_1 field_2 <&3; do
-        if [[ $field_1 =~ ^# ]]; then
-            # Skip lines that are commented out
+        if [[ $field_1 =~ (^$|^#) ]]; then
+            # Skip empty lines and lines that are commented out
             continue
         elif [ "$field_1" == "cmd" ]; then
             command_from_config $field_2
+        else
+            # Syntax error
+            echo -n >&2 "ERROR in $config_file: '$field_1"
+            if [ -n "$field_2" ]; then
+                echo >&2 " $field_2'"
+            else
+                echo >&2 "'"
+            fi
+            exit 1
         fi
     done
 }

@@ -4,20 +4,17 @@ TOP_DIR=$(cd $(dirname "$0")/.. && pwd)
 source "$TOP_DIR/config/paths"
 source "$CONFIG_DIR/credentials"
 source "$LIB_DIR/functions.guest"
-source "$CONFIG_DIR/admin-openstackrc.sh"
 exec_logfile
 
 indicate_current_auto
 
 #------------------------------------------------------------------------------
-# Create the external network and a subnet on it.
+# Create the external network and a subnet on it
+# http://docs.openstack.org/juno/install-guide/install/apt/content/neutron_initial-external-network.html
 #------------------------------------------------------------------------------
 
-# Work around neutron client failing with unsupported locale settings
-if [[ "$(neutron --help)" == "unsupported locale setting" ]]; then
-    echo "Locale not supported on node, setting LC_ALL=C."
-    export LC_ALL=C
-fi
+echo "Sourcing the admin credentials."
+source "$CONFIG_DIR/admin-openstackrc.sh"
 
 echo "Waiting for neutron to start."
 until neutron net-list >/dev/null 2>&1; do
@@ -25,7 +22,10 @@ until neutron net-list >/dev/null 2>&1; do
 done
 
 echo "Creating the external network."
-neutron net-create ext-net --router:external=True
+neutron net-create ext-net \
+    --router:external True \
+    --provider:physical_network external \
+    --provider:network_type flat
 
 echo "Creating a subnet on the external network."
 neutron subnet-create ext-net \

@@ -4,20 +4,17 @@ TOP_DIR=$(cd $(dirname "$0")/.. && pwd)
 source "$TOP_DIR/config/paths"
 source "$CONFIG_DIR/credentials"
 source "$LIB_DIR/functions.guest"
-source "$CONFIG_DIR/demo-openstackrc.sh"
 exec_logfile
 
 indicate_current_auto
 
 #------------------------------------------------------------------------------
-#
+# Create tenant network
+# http://docs.openstack.org/juno/install-guide/install/apt/content/neutron_initial-tenant-network.html
 #------------------------------------------------------------------------------
 
-# Work around neutron client failing with unsupported locale settings
-if [[ "$(neutron --help)" == "unsupported locale setting" ]]; then
-    echo "Locale not supported on node, setting LC_ALL=C."
-    export LC_ALL=C
-fi
+echo "Sourcing the demo credentials."
+source "$CONFIG_DIR/demo-openstackrc.sh"
 
 echo "Waiting for neutron to start."
 until neutron net-list >/dev/null 2>&1; do
