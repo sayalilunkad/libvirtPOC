@@ -1,3 +1,5 @@
+#!/usr/bin/python2.7
+
 import vm_tasks
 import network_tasks
 import os
@@ -17,33 +19,50 @@ api_net = network_tasks.Network('api', '192.168.100.1', 'vibr12')
 api_net.create_network()
 api_net.close()
 
+
 print "Creating base disk"
+
 vm = vm_tasks.Domain()
+
 vm.create_domain('base', 'kernel')
+
+print 'Installing the base VM: ',
+while vm.vm_status('base'):
+    time.sleep(10)
+    print '=',
+print '[Done]'
+
 vm.destroy_domain('base')
+os.system('git checkout xml/.')
+
 vm.create_domain('template2', 'hd')
 time.sleep(10)
 os.system("fab net base")
 vm.destroy_domain('template2')
+os.system('git checkout xml/.')
 
 print "Creating controller node"
 vm.create_domain('controller', 'hd')
-time.sleep(20)
+while not vm.vm_status('controller'):
+    time.sleep(5)
 print "Configuring networks in controller node"
 os.system("fab net controller_init")
 print "Restart controller node"
 vm.power_off('controller')
-time.sleep(30)
+while vm.vm_status('controller'):
+    time.sleep(5)
 vm.power_on('controller')
-time.sleep(30)
+while not vm.vm_status('controller'):
+    time.sleep(5)
 os.system("fab net_controller controller")
 vm.power_off('controller')
-time.sleep(30)
+while vm.vm_status('controller'):
+    time.sleep(5)
+
 
 print "Creating compute node"
-vm = vm_tasks.Domain()
 vm.create_domain('compute', 'hd')
-time.sleep(20)
+time.sleep(30)
 print "Configuring network for compute node"
 os.system("fab net compute_init")
 print "Restart compute node and start controller node"
@@ -72,3 +91,4 @@ time.sleep(30)
 vm.power_on('network')
 time.sleep(30)
 os.system("fab net_network network")
+

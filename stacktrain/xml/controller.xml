@@ -1,6 +1,6 @@
 <domain type="kvm">
-  <name>controller</name>
-  <uuid>2f0a51ae-0aa3-414e-a9eb-c4971884faa5</uuid>
+  <name></name>
+  <uuid></uuid>
   <memory unit="KiB">1024000</memory>
   <currentMemory unit="KiB">1024000</currentMemory>
   <vcpu placement="static">1</vcpu>
@@ -22,13 +22,13 @@
     <timer name="hpet" present="no" />
   </clock>
   <on_poweroff>destroy</on_poweroff>
-  <on_reboot>destroy</on_reboot>
-  <on_crash>destroy</on_crash>
+  <on_reboot>restart</on_reboot>
+  <on_crash>restart</on_crash>
   <devices>
     <emulator>/usr/sbin/qemu-system-x86_64</emulator>
     <disk device="cdrom" type="file">
       <driver name="qemu" type="raw" />
-      <source file="/home/sayali/Repositories/stacktrain/stacktrain/osbash/img/ubuntu-14.04.1-server-amd64.iso" />
+      <source file="/home/dbyte/Hack_Shit/stacktrain/stacktrain/osbash/img/ubuntu-14.04.1-server-amd64.iso" />
       <backingStore />
       <target bus="ide" dev="hdb" />
       <alias name="ide0-0-1" />
@@ -37,7 +37,7 @@
     </disk>
     <disk device="disk" type="file">
       <driver name="qemu" type="qcow2" />
-      <source file="/home/sayali/Repositories/stacktrain/stacktrain/osbash/img/test.qcow2" />
+      <source file="/home/dbyte/Hack_Shit/stacktrain/stacktrain/osbash/img/controller.qcow2" />
       <backingStore />
       <target bus="ide" dev="hda" />
       <alias name="ide0-0-0" />

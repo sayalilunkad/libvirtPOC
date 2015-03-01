@@ -55,10 +55,10 @@ def base():
 
 
 def controller_init():
-    run('rm -rf /home/osbash/autostart')
-    run('rm -rf /home/osbash/log')
-    run('mkdir autostart')
-    run('mkdir log')
+    run('sudo rm -rf /home/osbash/autostart')
+    run('sudo rm -rf /home/osbash/log')
+    run('sudo mkdir autostart')
+    run('sudo mkdir log')
     run('sudo apt-get update')
     put(ABS_DIR + '/osbash/config', '/home/osbash')
     put(ABS_DIR + '/osbash/lib', '/home/osbash')
@@ -79,14 +79,14 @@ def controller():
     autostart(ABS_DIR + '/osbash/scripts/config_external_network.sh')
     autostart(ABS_DIR + '/osbash/scripts/config_tenant_network.sh')
     autostart(ABS_DIR + '/osbash/scripts/setup_lbaas_controller.sh')
-    autostart(ABS_DIR + '/osbash/scripts/shutdown_controller.sh')
+    #autostart(ABS_DIR + '/osbash/scripts/shutdown_controller.sh')
 
 
 def compute_init():
-    run('rm -rf /home/osbash/autostart')
-    run('rm -rf /home/osbash/log')
-    run('mkdir autostart')
-    run('mkdir log')
+    run('sudo rm -rf /home/osbash/autostart')
+    run('sudo rm -rf /home/osbash/log')
+    run('sudo mkdir autostart')
+    run('sudo mkdir log')
     run('sudo apt-get update')
     autostart(ABS_DIR + '/osbash/scripts/osbash/init_compute_node.sh')
     autostart(ABS_DIR + '/osbash/scripts/etc_hosts.sh')
@@ -96,14 +96,14 @@ def compute():
     autostart(ABS_DIR + '/osbash/scripts/ubuntu/setup_nova_compute.sh')
     autostart(ABS_DIR + '/osbash/scripts/ubuntu/setup_neutron_compute.sh')
     autostart(ABS_DIR + '/osbash/scripts/ubuntu/setup_cinder_volumes.sh')
-    autostart(ABS_DIR + '/osbash/scripts/shutdown_controller.sh')
+    #autostart(ABS_DIR + '/osbash/scripts/shutdown_controller.sh')
 
 
 def network_init():
-    run('rm -rf /home/osbash/autostart')
-    run('rm -rf /home/osbash/log')
-    run('mkdir autostart')
-    run('mkdir log')
+    run('sudo rm -rf /home/osbash/autostart')
+    run('sudo rm -rf /home/osbash/log')
+    run('sudo mkdir autostart')
+    run('sudo mkdir log')
     run('sudo apt-get update')
     autostart(ABS_DIR + '/osbash/scripts/osbash/init_network_node.sh')
     autostart(ABS_DIR + '/osbash/scripts/etc_hosts.sh')
@@ -111,4 +111,4 @@ def network_init():
 
 def network():
     autostart(ABS_DIR + '/osbash/scripts/ubuntu/setup_neutron_network.sh')
-    autostart(ABS_DIR + '/osbash/scripts/shutdown_controller.sh')
+    #autostart(ABS_DIR + '/osbash/scripts/shutdown_controller.sh')

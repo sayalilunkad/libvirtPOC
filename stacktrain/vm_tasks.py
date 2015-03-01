@@ -20,6 +20,12 @@ class Domain(object):
             self._uri = 'qemu:///system'
             self.conn = libvirt.open(self._uri)
 
+    def vm_status(self, vm_name):
+
+        virDomain_obj = self.conn.lookupByName(vm_name)
+
+        return virDomain_obj.isActive()
+
     def power_on(self, domain_name):
         '''
         Powers on the required VM
@@ -97,7 +103,7 @@ class Domain(object):
 
     def createOtherVols(self, disk_name):
 
-        storage = storage_tasks.Storage('template2.qcow2', ABS_DIR + '/osbash/img',
+        storage = storage_tasks.Storage('base.qcow2', ABS_DIR + '/osbash/img',
                                         20)
 
         storage.cloneStorageVol(disk_name + '.qcow2')
