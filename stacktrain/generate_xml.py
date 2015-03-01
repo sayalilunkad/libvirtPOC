@@ -2,6 +2,8 @@
 
 import libvirt
 import os
+import shlex
+import subprocess
 import uuid as uid
 from xml.etree import ElementTree as ET
 
@@ -34,6 +36,31 @@ class GenerateXml(object):
                 self.guest_emulator = guest.findtext('./arch/emulator')
                 self.machine_type = \
                     guest.find('./arch/machine').attrib['canonical']
+
+    def get_ip(self, domain_name):
+        '''
+        Gets the machine ip
+        '''
+
+        virDomain_obj = self.conn.lookupByName(domain_name)
+        xmld = virDomain_obj.XMLDesc()
+        root = ET.fromstring(xmld)
+        for interface in root.findall('./devices/interface'):
+            if interface.find('./source').attrib['network'] == 'default':
+                mac = interface.find('./mac').attrib['address']
+
+        command = "arp -an"
+        command = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
+        guest_ip = command.communicate()[0]
+
+        for i in guest_ip.split('\n'):
+            if i.find(mac) is not -1:
+                guest_ip = i
+                break
+
+        guest_ip = guest_ip.split('(')[1].split(')')[0]
+
+        return guest_ip
 
     def fill_xml_details(self, domain_name, boot_type, memory):
         '''
