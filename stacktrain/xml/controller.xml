@@ -66,12 +66,11 @@
       <address bus="0x00" domain="0x0000" function="0x0" slot="0x06" type="pci" />
     </controller>
     <interface type="network">
-      <mac address="52:54:00:9c:94:3b" />
       <source network="default" />
       <model type="virtio" />
       <address bus="0x00" domain="0x0000" function="0x0" slot="0x03" type="pci" />
     </interface>
-    <interface type="network">
+    <interface type="user">
       <source network="mgmt" />
     </interface>
     <interface type="network">
@@ -110,4 +109,8 @@
       <address bus="0x00" domain="0x0000" function="0x0" slot="0x08" type="pci" />
     </memballoon>
   </devices>
+  <commandline>
+    <arg value='-redir'/>
+    <arg value='tcp:22::2222'/>
+ </commandline>
 </domain>
