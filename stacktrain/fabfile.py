@@ -3,10 +3,7 @@ from fabric.api import run
 from fabric.api import put
 from fabric.api import env
 import os
-
-# env.user = 'osbash'
-# env.password = 'osbash'
-# env.hosts = ['192.168.122.43', '10.10.10.51', '10.10.10.52', '10.10.10.53']
+import generate_xml
 
 ABS_DIR = os.path.abspath('fabfile.py').rsplit('/', 1)[0]
 
@@ -14,7 +11,33 @@ ABS_DIR = os.path.abspath('fabfile.py').rsplit('/', 1)[0]
 def net():
     env.user = 'osbash'
     env.password = 'osbash'
-    env.hosts = ['192.168.122.43']
+    vm = generate_xml.GenerateXml()
+    guest_ip = vm.get_ip('base')
+    env.hosts = ['%s' % guest_ip]
+
+
+def net_init_controller():
+    env.user = 'osbash'
+    env.password = 'osbash'
+    vm = generate_xml.GenerateXml()
+    guest_ip = vm.get_ip('controller')
+    env.hosts = ['%s' % guest_ip]
+
+
+def net_init_compute():
+    env.user = 'osbash'
+    env.password = 'osbash'
+    vm = generate_xml.GenerateXml()
+    guest_ip = vm.get_ip('compute')
+    env.hosts = ['%s' % guest_ip]
+
+
+def net_init_network():
+    env.user = 'osbash'
+    env.password = 'osbash'
+    vm = generate_xml.GenerateXml()
+    guest_ip = vm.get_ip('network')
+    env.hosts = ['%s' % guest_ip]
 
 
 def net_controller():
@@ -79,7 +102,6 @@ def controller():
     autostart(ABS_DIR + '/osbash/scripts/config_external_network.sh')
     autostart(ABS_DIR + '/osbash/scripts/config_tenant_network.sh')
     autostart(ABS_DIR + '/osbash/scripts/setup_lbaas_controller.sh')
-    #autostart(ABS_DIR + '/osbash/scripts/shutdown_controller.sh')
 
 
 def compute_init():
@@ -96,7 +118,6 @@ def compute():
     autostart(ABS_DIR + '/osbash/scripts/ubuntu/setup_nova_compute.sh')
     autostart(ABS_DIR + '/osbash/scripts/ubuntu/setup_neutron_compute.sh')
     autostart(ABS_DIR + '/osbash/scripts/ubuntu/setup_cinder_volumes.sh')
-    #autostart(ABS_DIR + '/osbash/scripts/shutdown_controller.sh')
 
 
 def network_init():
@@ -111,4 +132,3 @@ def network_init():
 
 def network():
     autostart(ABS_DIR + '/osbash/scripts/ubuntu/setup_neutron_network.sh')
-    #autostart(ABS_DIR + '/osbash/scripts/shutdown_controller.sh')
