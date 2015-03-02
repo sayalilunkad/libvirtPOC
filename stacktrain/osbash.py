@@ -37,8 +37,6 @@ print "Creating temporary disk"
 vm = vm_tasks.Domain()
 
 try:
-    vm.conn.lookupByName('base')
-except Exception:
     vm.create_domain('base', 'kernel')
 
     print 'Installing the base VM: ',
@@ -46,15 +44,15 @@ except Exception:
         time.sleep(10)
         print '=',
     print '[Done]'
+except:
+    pass
 
 print "Destroys temporary domain"
 vm.destroy_domain('base')
 os.system('git checkout xml/.')
 print "Creating base disk"
 vm.create_domain('template2', 'hd')
-
-while not vm.vm_status('template2'):
-    time.sleep(30)
+time.sleep(30)
 
 os.system("fab net base")
 print "Destroys base domain"
