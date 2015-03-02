@@ -5,10 +5,10 @@ import network_tasks
 import os
 import time
 
-'''
+
 print "Fetching required images"
 os.system("python2 get_image.py")
-'''
+
 print "Create the networks"
 mgmt_net = network_tasks.Network('mgmt', '10.10.10.1', 'vibr10')
 mgmt_net.create_network()
