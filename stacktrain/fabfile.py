@@ -12,7 +12,7 @@ def net():
     env.user = 'osbash'
     env.password = 'osbash'
     vm = generate_xml.GenerateXml()
-    guest_ip = vm.get_ip('base')
+    guest_ip = vm.get_ip('template2')
     env.hosts = ['%s' % guest_ip]
 
 
@@ -74,7 +74,6 @@ def base():
     autostart(ABS_DIR + '/osbash/scripts/ubuntu/apt_init.sh')
     autostart(ABS_DIR + '/osbash/scripts/ubuntu/apt_pre-download.sh')
     autostart(ABS_DIR + '/osbash/scripts/zero_empty.sh')
-    autostart(ABS_DIR + '/osbash/scripts/shutdown.sh')
 
 
 def controller_init():
