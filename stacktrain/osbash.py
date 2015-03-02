@@ -43,6 +43,7 @@ os.system('git checkout xml/.')
 
 print "Creating controller node"
 vm.create_domain('controller', 'hd')
+
 while not vm.vm_status('controller'):
     time.sleep(5)
 print "Configuring networks in controller node"

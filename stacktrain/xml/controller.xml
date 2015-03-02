@@ -1,6 +1,6 @@
 <domain type="kvm">
-  <name></name>
-  <uuid></uuid>
+  <name>controller</name>
+  <uuid>73ab3666-0a9f-4b85-9caa-9195219c5a98</uuid>
   <memory unit="KiB">1024000</memory>
   <currentMemory unit="KiB">1024000</currentMemory>
   <vcpu placement="static">1</vcpu>
