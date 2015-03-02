@@ -16,5 +16,5 @@ generated/
 
 # Labs artifacts
 stacktrain/osbash/img/
-stacktrain/osbash/xml/
+stacktrain/xml/
 stacktrain/osbash/log/
