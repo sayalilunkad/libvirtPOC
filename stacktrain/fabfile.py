@@ -19,24 +19,27 @@ def net():
 def net_init_controller():
     env.user = 'osbash'
     env.password = 'osbash'
-    vm = generate_xml.GenerateXml()
-    guest_ip = vm.get_ip('controller')
+    # vm = generate_xml.GenerateXml()
+    # guest_ip = vm.get_ip('controller')
+    guest_ip = input('Enter controller IP')
     env.hosts = ['%s' % guest_ip]
 
 
 def net_init_compute():
     env.user = 'osbash'
     env.password = 'osbash'
-    vm = generate_xml.GenerateXml()
-    guest_ip = vm.get_ip('compute')
+    # vm = generate_xml.GenerateXml()
+    # guest_ip = vm.get_ip('compute')
+    guest_ip = input('Enter compute ip')
     env.hosts = ['%s' % guest_ip]
 
 
 def net_init_network():
     env.user = 'osbash'
     env.password = 'osbash'
-    vm = generate_xml.GenerateXml()
-    guest_ip = vm.get_ip('network')
+    # vm = generate_xml.GenerateXml()
+    # guest_ip = vm.get_ip('network')
+    guest_ip = input('Enter network ip')
     env.hosts = ['%s' % guest_ip]
 
 
