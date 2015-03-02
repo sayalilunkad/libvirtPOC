@@ -34,14 +34,13 @@ def net_init_compute():
     env.hosts = ['%s' % guest_ip]
 
 
-def net_init_network():
+def  net_init_network():
     env.user = 'osbash'
     env.password = 'osbash'
-    # vm = generate_xml.GenerateXml()
-    # guest_ip = vm.get_ip('network')
+    #vm = generate_xml.GenerateXml()
+    #guest_ip = vm.get_ip('network')
     guest_ip = raw_input('Enter network ip')
     env.hosts = ['%s' % guest_ip]
-
 
 def net_controller():
     env.user = 'osbash'
@@ -80,14 +79,12 @@ def base():
 
 
 def controller_init():
-    run('sudo rm -rf /home/osbash/autostart')
-    run('sudo rm -rf /home/osbash/log')
-    run('sudo mkdir autostart')
-    run('sudo mkdir log')
+    run('sudo rm -rf /home/osbash/autostart/*')
     run('sudo apt-get update')
     put(ABS_DIR + '/osbash/config', '/home/osbash')
     put(ABS_DIR + '/osbash/lib', '/home/osbash')
-
+    #put(ABS_DIR + '/osbash/scripts/osbash/init_controller_node.sh', '/home/osbash/autostart')
+    #run('sudo bash /home/osbash/autostart/init_controller_node.sh')
     autostart(ABS_DIR + '/osbash/scripts/osbash/init_controller_node.sh')
     autostart(ABS_DIR + '/osbash/scripts/etc_hosts.sh')
 
@@ -107,10 +104,7 @@ def controller():
 
 
 def compute_init():
-    run('sudo rm -rf /home/osbash/autostart')
-    run('sudo rm -rf /home/osbash/log')
-    run('sudo mkdir autostart')
-    run('sudo mkdir log')
+    run('sudo rm -rf /home/osbash/autostart/*')
     run('sudo apt-get update')
     autostart(ABS_DIR + '/osbash/scripts/osbash/init_compute_node.sh')
     autostart(ABS_DIR + '/osbash/scripts/etc_hosts.sh')
@@ -123,10 +117,7 @@ def compute():
 
 
 def network_init():
-    run('sudo rm -rf /home/osbash/autostart')
-    run('sudo rm -rf /home/osbash/log')
-    run('sudo mkdir autostart')
-    run('sudo mkdir log')
+    run('sudo rm -rf /home/osbash/autostart/*')
     run('sudo apt-get update')
     autostart(ABS_DIR + '/osbash/scripts/osbash/init_network_node.sh')
     autostart(ABS_DIR + '/osbash/scripts/etc_hosts.sh')
