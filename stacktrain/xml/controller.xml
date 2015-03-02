@@ -28,7 +28,7 @@
     <emulator>/usr/sbin/qemu-system-x86_64</emulator>
     <disk device="cdrom" type="file">
       <driver name="qemu" type="raw" />
-      <source file="/home/dbyte/Hack_Shit/stacktrain/stacktrain/osbash/img/ubuntu-14.04.1-server-amd64.iso" />
+      <source file="" />
       <backingStore />
       <target bus="ide" dev="hdb" />
       <alias name="ide0-0-1" />
@@ -37,7 +37,7 @@
     </disk>
     <disk device="disk" type="file">
       <driver name="qemu" type="qcow2" />
-      <source file="/home/dbyte/Hack_Shit/stacktrain/stacktrain/osbash/img/controller.qcow2" />
+      <source file="" />
       <backingStore />
       <target bus="ide" dev="hda" />
       <alias name="ide0-0-0" />
@@ -70,7 +70,7 @@
       <model type="virtio" />
       <address bus="0x00" domain="0x0000" function="0x0" slot="0x03" type="pci" />
     </interface>
-    <interface type="user">
+    <interface type="network">
       <source network="mgmt" />
     </interface>
     <interface type="network">
