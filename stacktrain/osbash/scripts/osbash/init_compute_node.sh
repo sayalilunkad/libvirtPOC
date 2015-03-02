@@ -11,21 +11,24 @@ source "$LIB_DIR/functions.guest"
 
 # Determine hostname from script name
 re=".*init_(.*)_node.sh$"
-if [[ $0 =~ $re ]]; then
-    NODE_NAME=${BASH_REMATCH[1]}
-    NODE_NAME="${NODE_NAME}"
-else
-    echo "ERROR Unable to determine hostname"
-    exit 1
-fi
+#if [[ $0 =~ $re ]]; then
+#    NODE_NAME=${BASH_REMATCH[1]}
+#    NODE_NAME="${NODE_NAME}"
+#else
+#    echo "ERROR Unable to determine hostname"
+#    exit 1
+#fi
 
-indicate_current_auto
+#indicate_current_auto
 
-exec_logfile
+#exec_logfile
 
 # Set hostname for now and for rebooted system
-sudo hostname "$NODE_NAME" >/dev/null
-echo "$NODE_NAME" | sudo tee /etc/hostname > /dev/null
+#sudo hostname "$NODE_NAME" >/dev/null
+#echo "$NODE_NAME" | sudo tee /etc/hostname > /dev/null
+
+sudo hostname "compute" > /dev/null
+echo "compute" | sudo tee /etc/hostname > /dev/null
 
 # Configure network interfaces
 config_network
