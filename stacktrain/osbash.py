@@ -58,9 +58,6 @@ os.system("fab net base")
 print "Destroys base domain"
 vm.destroy_domain('template2')
 
-while vm.vm_status('template2'):
-    time.sleep(5)
-
 os.system('git checkout xml/.')
 
 print "Creating controller node"
