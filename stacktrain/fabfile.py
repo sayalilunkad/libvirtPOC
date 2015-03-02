@@ -21,7 +21,7 @@ def net_init_controller():
     env.password = 'osbash'
     # vm = generate_xml.GenerateXml()
     # guest_ip = vm.get_ip('controller')
-    guest_ip = input('Enter controller IP')
+    guest_ip = raw_input('Enter controller IP')
     env.hosts = ['%s' % guest_ip]
 
 
@@ -30,7 +30,7 @@ def net_init_compute():
     env.password = 'osbash'
     # vm = generate_xml.GenerateXml()
     # guest_ip = vm.get_ip('compute')
-    guest_ip = input('Enter compute ip')
+    guest_ip = raw_input('Enter compute ip')
     env.hosts = ['%s' % guest_ip]
 
 
@@ -39,7 +39,7 @@ def net_init_network():
     env.password = 'osbash'
     # vm = generate_xml.GenerateXml()
     # guest_ip = vm.get_ip('network')
-    guest_ip = input('Enter network ip')
+    guest_ip = raw_input('Enter network ip')
     env.hosts = ['%s' % guest_ip]
 
 
