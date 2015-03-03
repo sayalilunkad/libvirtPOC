@@ -35,7 +35,7 @@ except:
 print "Creating temporary disk"
 
 vm = vm_tasks.Domain()
-'''
+
 try:
     vm.create_domain('base', 'kernel')
 
@@ -59,7 +59,7 @@ print "Destroys base domain"
 vm.destroy_domain('template2')
 
 os.system('git checkout xml/.')
-'''
+
 print "Creating controller node"
 vm.create_domain('controller', 'hd')
 
