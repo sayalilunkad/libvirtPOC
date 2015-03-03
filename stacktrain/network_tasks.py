@@ -23,7 +23,9 @@ class Network:
     def create_network(self):
 
         try:
-            self.conn.networkCreateXML(self.xmlDesc)
+            network_domain = self.conn.networkDefineXML(self.xmlDesc)
+            network_domain.setAutostart(1)
+            network_domain.create()
             print 'Created NAT Network'
             return True
 
