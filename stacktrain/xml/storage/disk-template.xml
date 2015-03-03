@@ -1,0 +1,21 @@
+<volume type="file">
+  <name></name>
+  <key />
+  <source>
+  </source>
+  <capacity unit="GiB">20</capacity>
+  <allocation unit="bytes">1519616</allocation>
+  <target>
+    <path>/home/sayali/Repositories/stacktrain/stacktrain/osbash/img/base.qcow2</path>
+    <format type="qcow2" />
+    <permissions>
+      <mode>0644</mode>
+      <owner>0</owner>
+      <group>0</group>
+    </permissions>
+    <compat>1.1</compat>
+    <features>
+      <lazy_refcounts />
+    </features>
+  </target>
+</volume>

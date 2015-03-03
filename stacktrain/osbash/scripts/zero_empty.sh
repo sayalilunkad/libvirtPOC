@@ -10,4 +10,4 @@ exec_logfile
 
 # Fill unused disk space with zeroes (the disk image is easier to compress when
 # it doesn't contain leftovers from deleted files)
-zero_empty_space
+#zero_empty_space
