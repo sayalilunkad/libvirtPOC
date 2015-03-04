@@ -11,12 +11,16 @@ class Network:
         uri = 'qemu:///system'
         self.conn = libvirt.open(uri)
         self.xmlDesc = '''
-<network ipv6='yes'>
+<network>
     <name>'''+name+'''</name>
     <uuid></uuid>
+    <forward mode='nat'>
+        <nat>
+            <port start='1024' end='65535'/>
+        </nat>
     <ip address="'''+network_ip+'''" netmask="255.255.255.0"/>
     <bridge name="'''+bridge+'''" stp="on" delay="0" />
-    <mac address='00:16:3E:5D:C7:9E'/>
+    <mac address='00:16:3E:5D:C7:EF'''/>
 </network>
         '''
 
