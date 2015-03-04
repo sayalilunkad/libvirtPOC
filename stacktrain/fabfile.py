@@ -2,6 +2,7 @@ from os.path import basename
 from fabric.api import run
 from fabric.api import put
 from fabric.api import env
+import time
 import os
 import generate_xml
 
@@ -19,28 +20,32 @@ def net():
 def net_init_controller():
     env.user = 'osbash'
     env.password = 'osbash'
-    # vm = generate_xml.GenerateXml()
-    # guest_ip = vm.get_ip('controller')
-    guest_ip = raw_input('Enter controller IP')
+    time.sleep(60)
+    vm = generate_xml.GenerateXml()
+    guest_ip = vm.get_ip('controller')
+    # guest_ip = raw_input('Enter controller IP')
     env.hosts = ['%s' % guest_ip]
 
 
 def net_init_compute():
     env.user = 'osbash'
     env.password = 'osbash'
-    # vm = generate_xml.GenerateXml()
-    # guest_ip = vm.get_ip('compute')
-    guest_ip = raw_input('Enter compute ip')
+    time.sleep(60)
+    vm = generate_xml.GenerateXml()
+    guest_ip = vm.get_ip('compute')
+    # guest_ip = raw_input('Enter compute ip')
     env.hosts = ['%s' % guest_ip]
 
 
-def  net_init_network():
+def net_init_network():
     env.user = 'osbash'
     env.password = 'osbash'
-    #vm = generate_xml.GenerateXml()
-    #guest_ip = vm.get_ip('network')
-    guest_ip = raw_input('Enter network ip')
+    time.sleep(60)
+    vm = generate_xml.GenerateXml()
+    guest_ip = vm.get_ip('network')
+    # guest_ip = raw_input('Enter network ip')
     env.hosts = ['%s' % guest_ip]
+
 
 def net_controller():
     env.user = 'osbash'
@@ -83,8 +88,8 @@ def controller_init():
     run('sudo apt-get update')
     put(ABS_DIR + '/osbash/config', '/home/osbash')
     put(ABS_DIR + '/osbash/lib', '/home/osbash')
-    #put(ABS_DIR + '/osbash/scripts/osbash/init_controller_node.sh', '/home/osbash/autostart')
-    #run('sudo bash /home/osbash/autostart/init_controller_node.sh')
+    # put(ABS_DIR + '/osbash/scripts/osbash/init_controller_node.sh', '/home/osbash/autostart')
+    # run('sudo bash /home/osbash/autostart/init_controller_node.sh')
     autostart(ABS_DIR + '/osbash/scripts/osbash/init_controller_node.sh')
     autostart(ABS_DIR + '/osbash/scripts/etc_hosts.sh')
 
