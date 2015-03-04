@@ -33,7 +33,7 @@ except:
 
 
 print "Creating temporary disk"
-
+time.sleep(10)
 vm = vm_tasks.Domain()
 
 try:
@@ -50,60 +50,64 @@ except:
 print "Destroys temporary domain"
 vm.destroy_domain('base')
 os.system('git checkout xml/.')
+time.sleep(10)
 print "Creating base disk"
 vm.create_domain('template2', 'hd')
 time.sleep(30)
 
 os.system("fab net base")
+time.sleep(30)
 print "Destroys base domain"
 vm.destroy_domain('template2')
 
 os.system('git checkout xml/.')
-
+time.sleep(10)
 print "Creating controller node"
 vm.create_domain('controller', 'hd')
-
+time.sleep(100)
 while not vm.vm_status('controller'):
     time.sleep(5)
 print "Configuring networks in controller node"
 os.system("fab net_init_controller controller_init")
-time.sleep(50)
+time.sleep(30)
 print "Power off controller node"
 vm.power_off('controller')
 while vm.vm_status('controller'):
     time.sleep(5)
+time.sleep(30)
 print "Power on controller"
 vm.power_on('controller')
 while not vm.vm_status('controller'):
     time.sleep(5)
 time.sleep(100)
 os.system("fab net_controller controller")
-time.sleep(50)
+time.sleep(30)
 
 print "Power off controller"
 vm.power_off('controller')
 while vm.vm_status('controller'):
     time.sleep(5)
-
+time.sleep(10)
 print "Creating compute node"
 vm.create_domain('compute', 'hd')
 
 while not vm.vm_status('compute'):
     time.sleep(30)
-
+time.sleep(30)
 print "Configuring network for compute node"
 os.system("fab net_init_compute compute_init")
-time.sleep(50)
+time.sleep(30)
 
 print "Power off compute"
 vm.power_off('compute')
 while vm.vm_status('compute'):
     time.sleep(5)
+time.sleep(30)
 print "Power on controller"
 vm.power_on('controller')
 while not vm.vm_status('controller'):
     time.sleep(30)
-time.sleep(100)
+time.sleep(60)
 print "Power on compute"
 vm.power_on('compute')
 while not vm.vm_status('compute'):
@@ -117,15 +121,17 @@ vm.power_off('controller')
 while vm.vm_status('controller'):
     time.sleep(5)
 print "Power off compute"
+time.sleep(10)
 vm.power_off('compute')
 while vm.vm_status('compute'):
     time.sleep(5)
-
+time.sleep(20)
 print "Creating network node"
 vm.create_domain('network', 'hd')
 while not vm.vm_status('network'):
     time.sleep(30)
 
+time.sleep(30)
 os.system("fab net_init_network network_init")
 time.sleep(50)
 

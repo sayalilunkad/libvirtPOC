@@ -167,6 +167,7 @@ auto br-ex
 iface br-ex inet static
       address $network_api_ip
       netmask 255.255.255.0
+      gateway 192.168.100.1
 INTERFACES
 
 # Check if we can get to the API network again
