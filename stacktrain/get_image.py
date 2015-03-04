@@ -7,13 +7,13 @@ import urllib
 
 DISTRO = 'ubuntu'
 ABS_DIR = os.path.abspath(sys.argv[0]).rsplit('/', 1)[0]
-os.makedirs(ABS_DIR+'/osbash/img/pxeboot/')
 if DISTRO == 'ubuntu':
     if os.path.exists("%s/osbash/img/ubuntu-14.04.1-server-amd64.iso"
                       % ABS_DIR) is True:
         print 'ISO present.'
     else:
         print 'Downloading ISO.'
+        os.makedirs(ABS_DIR+'/osbash/img/')
         urllib.urlretrieve("http://releases.ubuntu.com/14.04/ubuntu-14.04.1-server-amd64.iso", "%s/osbash/img/ubuntu-14.04.1-server-amd64.iso" % ABS_DIR)
     print "PXE"
     directory = "%s/osbash/img/pxeboot" % ABS_DIR
