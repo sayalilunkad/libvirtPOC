@@ -16,6 +16,28 @@ scripts will automate deployment of OpenStack on VirtualBox and KVM/Qemu.
 
 Refer this etherpad https://etherpad.openstack.org/p/stacktrain
 
+
+What this script does
+-----------------------
+Deploys OpenStack multi-node cluster on KVM hypervisor.
+
+
+Pre-requisite:
+---------------
+* Install KVM/Qemu
+* Install python libvirt modules
+        pip2 install libvirt-python
+* Install Fabric (required for ssh)
+          pip2 install fabric
+
+
+
+How to run the cluster
+-----------------------
+
+          ./stacktrain.py
+
+
 Note
 ----
 
@@ -30,7 +52,7 @@ Scope
 I am creating POC on KVM/Qemu with Libvirt for automating openstack training
 labs tools. This repository should eventually do the following:
 
-1. Automate creating of KVM/Qemu mahines.
+1. Automate creating of KVM/Qemu machines.
 2. Take step by step snapshots of the guest VM
 3. Use libvirt libraries and also oslo if possible.
 4. Keep the dependencies as less as possible.
