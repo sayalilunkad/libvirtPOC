@@ -47,6 +47,7 @@ try:
 except:
     pass
 
+'''
 print "Destroys temporary domain"
 vm.destroy_domain('base')
 os.system('git checkout xml/.')
@@ -156,4 +157,4 @@ while not vm.vm_status('network'):
 time.sleep(100)
 os.system("fab net_network network")
 time.sleep(50)
-
+'''

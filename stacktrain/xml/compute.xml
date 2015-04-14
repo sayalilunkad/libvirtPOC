@@ -1,11 +1,11 @@
 <domain type="kvm">
-  <name></name>
-  <uuid></uuid>
+  <name>compute</name>
+  <uuid>75120f30-6706-489f-9bb4-09a7cc613a04</uuid>
   <memory unit="KiB">1024000</memory>
   <currentMemory unit="KiB">1024000</currentMemory>
   <vcpu placement="static">1</vcpu>
   <os>
-    <type arch="xtensaeb" machine="pc-i440fx-2.2">hvm</type>
+    <type arch="x86_64" machine="pc-i440fx-2.2">hvm</type>
     <boot dev="hd" />
   </os>
   <features>
@@ -25,10 +25,10 @@
   <on_reboot>restart</on_reboot>
   <on_crash>restart</on_crash>
   <devices>
-    <emulator>/usr/sbin/qemu-system-x86_64</emulator>
+    <emulator>/usr/bin/qemu-system-x86_64</emulator>
     <disk device="cdrom" type="file">
       <driver name="qemu" type="raw" />
-      <source file="" />
+      <source file="/home/pranav/Hack_Shit/libvirtPOC/stacktrain/osbash/img/ubuntu-14.04.1-server-amd64.iso" />
       <backingStore />
       <target bus="ide" dev="hdb" />
       <alias name="ide0-0-1" />
@@ -37,7 +37,7 @@
     </disk>
     <disk device="disk" type="file">
       <driver name="qemu" type="qcow2" />
-      <source file="" />
+      <source file="/home/pranav/Hack_Shit/libvirtPOC/stacktrain/osbash/img/compute.qcow2" />
       <backingStore />
       <target bus="ide" dev="hda" />
       <alias name="ide0-0-0" />

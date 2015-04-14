@@ -1,7 +1,7 @@
 <pool type="dir">
   <name>stacktrain</name>
   <target>
-    <path>/home/dbyte/Hack_Shit/stacktrain/stacktrain/osbash/img</path>
+    <path>/home/pranav/Hack_Shit/libvirtPOC/stacktrain/osbash/img</path>
     <permissions>
       <mode>0755</mode>
       <owner>-1</owner>
