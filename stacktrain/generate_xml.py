@@ -88,7 +88,7 @@ class GenerateXml(object):
         for d in root.findall('./devices/disk'):
             if d.attrib['device'] == 'cdrom':
                 d.find('./source').attrib['file'] = \
-		    '%s/osbash/img/OpenSUSE/openSUSE-13.2-NET-x86_64.iso' % ABS_DIR
+                    '%s/osbash/img/CentOS/boot.iso' % ABS_DIR
             elif d.attrib['device'] == 'disk':
                 if boot_type == 'kernel':
                     d.find('./source').attrib['file'] = \
@@ -102,7 +102,7 @@ class GenerateXml(object):
                             '%s/osbash/img/%s.qcow2' % (ABS_DIR, domain_name)
         if boot_type == 'kernel':
             root.find('./os/kernel').text = \
-                '%s/osbash/img/OpenSUSE/linux' % ABS_DIR
+                '%s/osbash/img/CentOS/vmlinuz' % ABS_DIR
             root.find('./os/initrd').text = \
-                '%s/osbash/img/OpenSUSE/initrd' % ABS_DIR
+                '%s/osbash/img/CentOS/initrd.img' % ABS_DIR
         tree.write('%s/xml/%s.xml' % (ABS_DIR, domain_name))

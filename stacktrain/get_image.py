@@ -5,36 +5,36 @@ import os
 import sys
 import urllib
 
-DISTRO = 'opensuse'
+DISTRO = 'centos'
 ABS_DIR = os.path.abspath(sys.argv[0]).rsplit('/', 1)[0]
 
-directory = ABS_DIR+'/osbash/img/OpenSUSE/'
+directory = ABS_DIR+'/osbash/img/CentOS/'
 if os.path.exists(directory):
     pass
 else:
     os.makedirs(directory)
 
-if DISTRO == 'opensuse':
-    if os.path.exists("%s/osbash/img/OpenSUSE/openSUSE-13.2-NET-x86_64.iso"
+if DISTRO == 'centos':
+    if os.path.exists("%s/osbash/img/CentOS/boot.iso"
                       % ABS_DIR) is True:
         print 'ISO present.'
     else:
         print 'Downloading ISO.'
-        urllib.urlretrieve("http://download.opensuse.org/distribution/13.2/iso/openSUSE-13.2-NET-x86_64.iso", "%s/osbash/img/OpenSUSE/openSUSE-13.2-NET-x86_64.iso" % ABS_DIR)
+        urllib.urlretrieve("http://mirror.softaculous.com/centos/7/os/x86_64/images/boot.iso", "%s/osbash/img/CentOS/boot.iso" % ABS_DIR)
     print "PXE"
-    directory = "%s/osbash/img/OpenSUSE/" % ABS_DIR
+    directory = "%s/osbash/img/CentOS/" % ABS_DIR
     if not os.path.exists(directory):
         os.mkdir(directory)
-    if os.path.exists("%s/osbash/img/OpenSUSE/linux" % ABS_DIR) is True:
+    if os.path.exists("%s/osbash/img/CentOS/vmlinuz" % ABS_DIR) is True:
         print 'Kernel image present.'
     else:
         print 'Downloading kernel image.'
-        urllib.urlretrieve("http://download.opensuse.org/distribution/13.2/repo/oss/boot/x86_64/loader/linux", \
-                           "%s/osbash/img/OpenSUSE/linux" % ABS_DIR)
-    if os.path.exists("%s/osbash/img/OpenSUSE/initrd" % ABS_DIR) is True:
+        urllib.urlretrieve("http://mirror.softaculous.com/centos/7/os/x86_64/images/pxeboot/vmlinuz", \
+                           "%s/osbash/img/CentOS/vmlinuz" % ABS_DIR)
+    if os.path.exists("%s/osbash/img/CentOS/initrd.img" % ABS_DIR) is True:
         print 'initrd present.'
     else:
         print 'Downloading initrd'
-        urllib.urlretrieve("http://download.opensuse.org/distribution/13.2/repo/oss/boot/x86_64/loader/initrd", \
-                           "%s/osbash/img/OpenSUSE/initrd" % ABS_DIR)
+        urllib.urlretrieve("http://mirror.softaculous.com/centos/7/os/x86_64/images/pxeboot/initrd.img", \
+                           "%s/osbash/img/CentOS/initrd.img" % ABS_DIR)
 
