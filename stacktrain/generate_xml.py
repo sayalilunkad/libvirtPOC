@@ -87,8 +87,7 @@ class GenerateXml(object):
         root.find('./devices/emulator').text = self.guest_emulator
         for d in root.findall('./devices/disk'):
             if d.attrib['device'] == 'cdrom':
-                d.find('./source').attrib['file'] = \
-		    '%s/osbash/img/OpenSUSE/openSUSE-13.2-NET-x86_64.iso' % ABS_DIR
+                pass # No disk for OpenSUSE
             elif d.attrib['device'] == 'disk':
                 if boot_type == 'kernel':
                     d.find('./source').attrib['file'] = \

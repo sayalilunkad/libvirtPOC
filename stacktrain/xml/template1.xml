@@ -8,7 +8,7 @@
     <type arch='' machine=''></type>
     <kernel></kernel>
     <initrd></initrd>
-    <cmdline>install=http://download.opensuse.org/distribution/13.2/repo/oss/ autoyast2=https://raw.githubusercontent.com/sayalilunkad/libvirtPOC/opensuse/stacktrain/osbash/autoinst.xml</cmdline>
+    <cmdline>install=http://download.opensuse.org/distribution/13.2/repo/oss/ autoyast2=https://raw.githubusercontent.com/sayalilunkad/libvirtPOC/opensuse/stacktrain/osbash/StackTrain.xml</cmdline>
   </os>
   <features>
     <acpi/>

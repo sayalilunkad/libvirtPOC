@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<!DOCTYPE profile>
+<profile xmlns="http://www.suse.com/1.0/yast2ns" xmlns:config="http://www.suse.com/1.0/configns">
+  <add-on>
+    <add_on_products config:type="list">
+      <listentry>
+        <media_url><![CDATA[http://download.opensuse.org/distribution/13.2/repo/oss/]]></media_url>
+        <product>Oss</product>
+        <product_dir>/</product_dir>
+      </listentry>
+      <listentry>
+        <media_url><![CDATA[http://download.opensuse.org/update/13.2/]]></media_url>
+        <product>Update</product>
+        <product_dir>/</product_dir>
+      </listentry>
+    </add_on_products>
+  </add-on>
+  <deploy_image>
+    <image_installation config:type="boolean">true</image_installation>
+  </deploy_image>
+  <firewall>
+    <start_firewall config:type="boolean">false</start_firewall>
+  </firewall>
+  <general>
+    <ask-list config:type="list"/>
+    <mode>
+      <confirm config:type="boolean">false</confirm>
+      <final_halt config:type="boolean">true</final_halt>
+      <final_reboot config:type="boolean">false</final_reboot>
+      <halt config:type="boolean">false</halt>
+      <second_stage config:type="boolean">false</second_stage>
+    </mode>
+    <proposals config:type="list"/>
+    <signature-handling>
+      <accept_file_without_checksum config:type="boolean">true</accept_file_without_checksum>
+      <accept_non_trusted_gpg_key config:type="boolean">true</accept_non_trusted_gpg_key>
+      <accept_unknown_gpg_key config:type="boolean">true</accept_unknown_gpg_key>
+      <accept_unsigned_file config:type="boolean">true</accept_unsigned_file>
+      <accept_verification_failed config:type="boolean">false</accept_verification_failed>
+      <import_gpg_key config:type="boolean">true</import_gpg_key>
+    </signature-handling>
+    <storage/>
+  </general>
+  <groups config:type="list"/>
+  <keyboard>
+    <keymap>english-us</keymap>
+  </keyboard>
+  <login_settings/>
+  <partitioning config:type="list">
+    <drive>
+      <disklabel>msdos</disklabel>
+      <initialize config:type="boolean">true</initialize>
+      <partitions config:type="list"/>
+      <type config:type="symbol">CT_DISK</type>
+      <use>all</use>
+    </drive>
+  </partitioning>
+  <report>
+    <errors>
+      <log config:type="boolean">true</log>
+      <show config:type="boolean">true</show>
+      <timeout config:type="integer">10</timeout>
+    </errors>
+    <messages>
+      <log config:type="boolean">true</log>
+      <show config:type="boolean">true</show>
+      <timeout config:type="integer">10</timeout>
+    </messages>
+    <warnings>
+      <log config:type="boolean">true</log>
+      <show config:type="boolean">true</show>
+      <timeout config:type="integer">10</timeout>
+    </warnings>
+    <yesno_messages>
+      <log config:type="boolean">true</log>
+      <show config:type="boolean">true</show>
+      <timeout config:type="integer">10</timeout>
+    </yesno_messages>
+  </report>
+  <scripts>
+    <init-scripts config:type="list">
+      <script>
+        <filename>zzz_halt</filename>
+        <source><![CDATA[chkconfig autoyast off
+shutdown -h now]]></source>
+      </script>
+      <script>
+        <filename>zzz_halt</filename>
+        <source><![CDATA[chkconfig autoyast off
+shutdown -h now]]></source>
+      </script>
+    </init-scripts>
+  </scripts>
+  <services-manager>
+    <default_target>graphical</default_target>
+    <services>
+      <disable config:type="list"/>
+      <enable config:type="list">
+        <service>autofs</service>
+        <service>avahi-daemon</service>
+        <service>bluetooth</service>
+        <service>cron</service>
+        <service>cups-browsed</service>
+        <service>cups</service>
+        <service>getty@tty1</service>
+        <service>klog</service>
+        <service>libvirtd</service>
+        <service>mcelog</service>
+        <service>ModemManager</service>
+        <service>NetworkManager</service>
+        <service>nscd</service>
+        <service>ntpd</service>
+        <service>postfix</service>
+        <service>rpcbind</service>
+        <service>rsyslog</service>
+        <service>sshd</service>
+        <service>vboxdrv</service>
+        <service>wicked</service>
+        <service>wickedd-auto4</service>
+        <service>wickedd-dhcp4</service>
+        <service>wickedd-dhcp6</service>
+        <service>wickedd-nanny</service>
+        <service>wickedd</service>
+        <service>wpa_supplicant</service>
+        <service>YaST2-Firstboot</service>
+        <service>YaST2-Second-Stage</service>
+        <service>ypbind</service>
+      </enable>
+    </services>
+  </services-manager>
+  <software>
+    <instsource>http://download.opensuse.org/distribution/13.2/repo/oss/</instsource>
+    <packages config:type="list">
+      <package>autoyast2-installation</package>
+      <package>kernel-default</package>
+      <package>e2fsprogs</package>
+      <package>vim</package>
+      <package>openssh</package>
+      <package>grub2</package>
+      <package>sudo</package>
+      <package>dosfstools</package>
+      <package>gfxboot</package>
+      <package>dmidecode</package>
+      <package>wget</package>
+      <package>nano</package>
+      <package>man</package>
+      <package>less</package>
+      <package>lsb-release</package>
+      <package>deltarpm</package>
+      <package>ntp</package>
+      <package>hdparm</package>
+      <package>autofs</package>
+      <package>hfsutils</package>
+      <package>klogd</package>
+      <package>glibc-32bit</package>
+      <package>ifplugd</package>
+      <package>dhcpcd</package>
+      <package>openSUSE-build-key</package>
+      <package>patterns-openSUSE-apparmor</package>
+      <package>grub2-x86_64-efi</package>
+      <package>kernel-vanilla</package>
+      <package>lynx</package>
+      <package>numactl</package>
+      <package>pam_ssh</package>
+      <package>glibc-locale-32bit</package>
+      <package>makedev</package>
+    </packages>
+    <patterns config:type="list">
+      <pattern>yast2_basis</pattern>
+      <pattern>sw_management</pattern>
+      <pattern>apparmor</pattern>
+      <pattern>64bit</pattern>
+      <pattern>apparmor_opt</pattern>
+      <pattern>base</pattern>
+      <pattern>console</pattern>
+      <pattern>devel_python</pattern>
+      <pattern>enhanced_base_opt</pattern>
+      <pattern>x86</pattern>
+    </patterns>
+  </software>
+  <timezone>
+    <hwclock>UTC</hwclock>
+    <timezone>Europe/Berlin</timezone>
+  </timezone>
+  <user_defaults>
+    <group>100</group>
+    <groups/>
+    <home>/home</home>
+    <inactive>0</inactive>
+    <no_groups config:type="boolean">true</no_groups>
+    <shell>/bin/bash</shell>
+    <skel>/etc/skel</skel>
+  </user_defaults>
+  <users config:type="list">
+    <user>
+      <encrypted config:type="boolean">true</encrypted>
+      <user_password>$6$HiY2VxrfOKPx$mjNVkUSIX796HTG8U7muarr.y9RjSgSD2Zlbmb/geL1mRM7vwB91L8TPEhY98ErBUkufnp1nKY2NaSK39w0Vk.</user_password>
+      <username>root</username>
+    </user>
+    <user>
+      <encrypted config:type="boolean">true</encrypted>
+      <fullname>StackTrain</fullname>
+      <gid>469</gid>
+      <home>/home/stacktrain</home>
+      <password_settings>
+        <inact>-1</inact>
+        <max>99999</max>
+        <min>0</min>
+        <warn>7</warn>
+      </password_settings>
+      <shell>/bin/bash</shell>
+      <uid>100</uid>
+      <user_password>$6$xeJ1BrwKsAUE$3wpnPIlVdjaQGwrv4bl20bp8nDmeQuRE.mtO/DCHW5S9kMnWXWJqi7nqTa99JDlRKUXyrAJjeZYmLNlwkhu1Y/</user_password>
+      <username>stacktrain</username>
+    </user>
+  </users>
+</profile>
