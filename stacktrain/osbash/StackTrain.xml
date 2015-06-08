@@ -89,6 +89,11 @@ shutdown -h now]]></source>
         <source><![CDATA[chkconfig autoyast off
 shutdown -h now]]></source>
       </script>
+      <script>
+        <filename>zzz_halt</filename>
+        <source><![CDATA[chkconfig autoyast off
+shutdown -h now]]></source>
+      </script>
     </init-scripts>
   </scripts>
   <services-manager>
@@ -194,8 +199,20 @@ shutdown -h now]]></source>
   <users config:type="list">
     <user>
       <encrypted config:type="boolean">true</encrypted>
-      <user_password>$6$HiY2VxrfOKPx$mjNVkUSIX796HTG8U7muarr.y9RjSgSD2Zlbmb/geL1mRM7vwB91L8TPEhY98ErBUkufnp1nKY2NaSK39w0Vk.</user_password>
-      <username>root</username>
+      <fullname>OpenSUSE</fullname>
+      <gid>100</gid>
+      <home>/home/opensuse</home>
+      <password_settings>
+        <flag/>
+        <inact>0</inact>
+        <max>99999</max>
+        <min>0</min>
+        <warn>7</warn>
+      </password_settings>
+      <shell>/bin/bash</shell>
+      <uid>1000</uid>
+      <user_password>$6$e9XvlSlQzQgG$g4T1fdjJWvcnO04vhRbgVtL5L2qtOnudch/mN93j5QYnkyBaZHWQQ4AHRthihN2FZwVfcEz0ECOn9RBzVtYEO1</user_password>
+      <username>opensuse</username>
     </user>
     <user>
       <encrypted config:type="boolean">true</encrypted>
@@ -212,6 +229,24 @@ shutdown -h now]]></source>
       <uid>100</uid>
       <user_password>$6$xeJ1BrwKsAUE$3wpnPIlVdjaQGwrv4bl20bp8nDmeQuRE.mtO/DCHW5S9kMnWXWJqi7nqTa99JDlRKUXyrAJjeZYmLNlwkhu1Y/</user_password>
       <username>stacktrain</username>
+    </user>
+    <user>
+      <encrypted config:type="boolean">true</encrypted>
+      <fullname>root</fullname>
+      <gid>0</gid>
+      <home>/root</home>
+      <password_settings>
+        <expire/>
+        <flag/>
+        <inact/>
+        <max/>
+        <min/>
+        <warn/>
+      </password_settings>
+      <shell>/usr/bin/zsh</shell>
+      <uid>0</uid>
+      <user_password>$6$HiY2VxrfOKPx$mjNVkUSIX796HTG8U7muarr.y9RjSgSD2Zlbmb/geL1mRM7vwB91L8TPEhY98ErBUkufnp1nKY2NaSK39w0Vk.</user_password>
+      <username>root</username>
     </user>
   </users>
 </profile>
