@@ -35,7 +35,7 @@ class GenerateXml(object):
                 self.os_type = guest.findtext('os_type')
                 self.guest_emulator = guest.findtext('./arch/emulator')
                 self.machine_type = \
-                    guest.find('./arch/machine').attrib['canonical']
+                    guest.find('./arch/machine[@canonical]').attrib['canonical']
 
     def get_ip(self, domain_name):
         '''
