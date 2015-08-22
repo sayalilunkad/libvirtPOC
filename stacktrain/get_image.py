@@ -8,7 +8,7 @@ import urllib
 DISTRO = 'ubuntu'
 ABS_DIR = os.path.abspath(sys.argv[0]).rsplit('/', 1)[0]
 if DISTRO == 'ubuntu':
-    if os.path.exists("%s/osbash/img/ubuntu-14.04.4-server-amd64.iso"
+    if os.path.exists("%s/osbash/img/ubuntu-14.04.3-server-amd64.iso"
                       % ABS_DIR) is True:
         print 'ISO present.'
     else:
