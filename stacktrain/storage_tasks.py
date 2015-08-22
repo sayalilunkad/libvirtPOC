@@ -25,7 +25,7 @@ class Storage:
         fhandle = open(self.pooltemplate, 'r')
         poolXML = fhandle.read()
 
-        pool = self.conn.storagePoolDefineXML(poolXML, 0)
+        pool = self.conn.storagePoolDefineXML(poolXML)
         pool.setAutostart(1)
         pool.create()
 
