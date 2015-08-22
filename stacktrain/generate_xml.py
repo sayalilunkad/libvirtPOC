@@ -88,7 +88,7 @@ class GenerateXml(object):
         for d in root.findall('./devices/disk'):
             if d.attrib['device'] == 'cdrom':
                 d.find('./source').attrib['file'] = \
-                    '%s/osbash/img/ubuntu-14.04.2-server-amd64.iso' % ABS_DIR
+                    '%s/osbash/img/ubuntu-14.04.3-server-amd64.iso' % ABS_DIR
             elif d.attrib['device'] == 'disk':
                 if boot_type == 'kernel':
                     d.find('./source').attrib['file'] = \
