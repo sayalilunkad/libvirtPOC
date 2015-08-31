@@ -15,14 +15,9 @@ else:
     os.makedirs(directory)
 
 if DISTRO == 'opensuse':
-    if os.path.exists("%s/osbash/img/OpenSUSE/openSUSE-13.2-NET-x86_64.iso"
-                      % ABS_DIR) is True:
-        print 'ISO present.'
-    else:
-        print 'Downloading ISO.'
-        #urllib.urlretrieve("http://download.opensuse.org/distribution/13.2/iso/openSUSE-13.2-NET-x86_64.iso", "%s/osbash/img/OpenSUSE/openSUSE-13.2-NET-x86_64.iso" % ABS_DIR)
     print "PXE"
     directory = "%s/osbash/img/OpenSUSE/" % ABS_DIR
+
     if not os.path.exists(directory):
         os.mkdir(directory)
     if os.path.exists("%s/osbash/img/OpenSUSE/linux" % ABS_DIR) is True:

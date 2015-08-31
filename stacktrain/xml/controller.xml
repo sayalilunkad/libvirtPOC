@@ -28,7 +28,6 @@
     <emulator>/usr/bin/qemu-system-x86_64</emulator>
     <disk device="cdrom" type="file">
       <driver name="qemu" type="raw" />
-      <source file="/home/pranav/Hack_Shit/libvirtPOC/stacktrain/osbash/img/ubuntu-14.04.1-server-amd64.iso" />
       <backingStore />
       <target bus="ide" dev="hdb" />
       <alias name="ide0-0-1" />

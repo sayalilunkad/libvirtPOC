@@ -6,7 +6,7 @@
   <capacity unit="GiB">20</capacity>
   <allocation unit="bytes">1519616</allocation>
   <target>
-    <path>/home/pranav/Hack_Shit/libvirtPOC/stacktrain/osbash/img/base.qcow2</path>
+    <path></path>
     <format type="qcow2" />
     <permissions>
       <mode>0644</mode>
