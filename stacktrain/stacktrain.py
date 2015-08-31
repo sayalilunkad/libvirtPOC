@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/env python
 
 import vm_tasks
 import network_tasks
@@ -36,16 +36,13 @@ print "Creating temporary disk"
 time.sleep(10)
 vm = vm_tasks.Domain()
 
-try:
-    vm.create_domain('base', 'kernel')
+vm.create_domain('base', 'kernel')
 
-    print 'Installing the base VM: ',
-    while vm.vm_status('base'):
-        time.sleep(10)
-        print '=',
-    print '[Done]'
-except:
-    pass
+print 'Installing the base VM: ',
+while vm.vm_status('base'):
+    time.sleep(10)
+    print '=',
+print '[Done]'
 
 '''
 print "Destroys temporary domain"
